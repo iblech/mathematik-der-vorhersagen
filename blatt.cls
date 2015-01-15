@@ -42,7 +42,7 @@
   \vspace*{1.7cm}}
 \renewcommand{\maketitle}[1]{%
   \makeheader
-  \begin{center}\Large \textbf{#1}\end{center}
+  \begin{center}\Large \textbf{\textsf{#1}}\end{center}
   \vspace{\titleskip}}
 
 \renewcommand*\theenumi{\alph{enumi}}
