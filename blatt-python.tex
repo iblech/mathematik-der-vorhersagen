@@ -44,8 +44,49 @@ sollte).
 
 \section{Erste Schritte}
 
+\subsection{Hallo, Welt!}
+
+Das erste Programm, dass man schreibt, wenn man eine neue Programmiersprache
+lernt, ist \emph{Hallo Welt!}: Ein Programm, dass eine kurze Meldung ausgibt
+und sich dann beendet. In Python sieht das so aus:
+
+% XXX: Syntax Highlighting
+\begin{verbatim}
+    #!/usr/bin/env python
+    # -*- coding: utf-8 -*-
+
+    print("Hallo Welt!")
+\end{verbatim}
+
+Tippe das Programm ab (oder kopiere den Quellcode von XXX) und führe es aus.
+Wenn es nicht klappt, dann melde dich bei uns (XXX Forum?).
+
+Die ersten beiden Zeilen finden sich in jedem Python-Programm. Die erste ist
+vor allem unter Linux und OS~X wichtig; sie ist der Indikator für das
+Betriebssystem, dass es sich um ein Python-Programm handelt. Es ist guter Stil,
+sie auch unter Windows beizubehalten. Zeile~2 hat technische
+Gründe.\footnote{Zeile~2 setzt fest, dass der Programmcode in der
+Zeichenkodierung UTF-8 (und nicht etwa in dem älteren Standard ISO-8859-1)
+interpretiert werden soll. Eine Zeichenkodierung gibt an, wie Umlaute und
+andere Zeichen, die über den Sprachschatz des amerikanischen ASCII-Standards
+aus den 70er Jahren (XXX) hinausgehen, als Bytes gespeichert werden sollen.}
+
+Zeile 3 ist eine Leerzeile. Leerzeilen haben für Python selbst keine Bedeutung,
+können also nach Belieben hinzugefügt oder entfernt werden. Es ist aber guter
+Stil, einzelne Sinneinheiten durch Leerzeilen zu trennen, um den Code für den
+Menschen übersichtlicher zu gestalten. Es gibt ja auch einen Grund, wieso es im
+Deutschen und vielen anderen natürlichen Sprachen Absätze gibt.
+
+Die eigentliche Arbeit wird durch Zeile~4 angestoßen. Dort wird die in Python
+vordefinierte Prozedur \texttt{print} mit dem \emph{Argument} \texttt{\"{}Hallo,
+Welt!\"} aufgerufen. Die Schreibweise soll an die in der Mathematik übliche
+Notation für Funktionen erinnern -- dort schreibt man zum Beispiel
+"`$\sin(5)$"'.
+
+
+\subsection{Die interaktive Python-Shell}
+
 \begin{itemize}
-\item Hallo Welt
 \item Einfache Rechnungen
 \item Grundtechniken im Debugging
 \end{itemize}
