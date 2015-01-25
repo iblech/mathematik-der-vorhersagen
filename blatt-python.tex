@@ -28,8 +28,8 @@ eingesetzt -- das ist der Aspekt, den wir beleuchten werden.
 
 \section{Installation von Python}
 
-Damit ein Computer Python-Programme ausführen kann, muss man zunächst den
-Python-Interpreter installieren. Das ist die erste Aufgabe an euch!
+Damit ein Computer Python-Programme ausführen kann, muss man zunächst einen
+\emph{Python-Interpreter} installieren. Das ist die erste Aufgabe an euch!
 
 \paragraph{Unter Ubuntu Linux und anderen Debian-Derivaten.}
 Öffne eine Konsole und setz den Befehl \texttt{sudo apt-get install
@@ -88,6 +88,29 @@ Notation für Funktionen erinnern -- dort schreibt man zum Beispiel
 
 \begin{itemize}
 \item Einfache Rechnungen
+\end{itemize}
+
+
+\subsection{Programmierfehler und wie man mit ihnen umgeht}
+
+Beim Programmieren macht man Fehler. Von denen gibt es vor allem zwei Arten:
+\emph{Syntaxfehler} und \emph{inhaltliche Fehler}. Ein Syntaxfehler tritt auf,
+wenn man sich nicht an die Schreibregeln von Python hält. Zum Beispiel wird der
+Code
+\begin{verbatim}
+    print("Hallo, Welt!"
+\end{verbatim}
+nicht funktionieren, da die schließende Klammer fehlt. Syntaxfehler werden vom
+Python-Interpreter direkt nach dem Start, noch bevor er mit dem Ausführen des
+Codes beginnt, erkannt und gemeldet.
+
+Programmiersprachen wie Python sind in ihrer Syntax sehr streng. XXX Beispiel,
+XXX Warnung vor falscher Zeilenangabe im Fehlerbericht, XXX Schleichwerbung für
+statische Typsysteme
+
+\begin{itemize}
+\item inhaltliche Fehler (Beispiel: Variablenvertauschung)
+\item Umlaute
 \item Grundtechniken im Debugging
 \end{itemize}
 
