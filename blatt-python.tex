@@ -93,6 +93,7 @@ Notation für Funktionen erinnern -- dort schreibt man zum Beispiel
 
 \subsection{Programmierfehler und wie man mit ihnen umgeht}
 
+\paragraph{Syntaxfehler}
 Beim Programmieren macht man Fehler. Von denen gibt es vor allem zwei Arten:
 \emph{Syntaxfehler} und \emph{inhaltliche Fehler}. Ein Syntaxfehler tritt auf,
 wenn man sich nicht an die Schreibregeln von Python hält. Zum Beispiel wird der
@@ -101,16 +102,54 @@ Code
     print("Hallo, Welt!"
 \end{verbatim}
 nicht funktionieren, da die schließende Klammer fehlt. Syntaxfehler werden vom
-Python-Interpreter direkt nach dem Start, noch bevor er mit dem Ausführen des
+Python-Interpreter direkt nach dem Start, noch bevor er mit der Ausführung des
 Codes beginnt, erkannt und gemeldet.
 
-Programmiersprachen wie Python sind in ihrer Syntax sehr streng. XXX Beispiel,
-XXX Warnung vor falscher Zeilenangabe im Fehlerbericht, XXX Schleichwerbung für
-statische Typsysteme
+Programmiersprachen wie Python sind in ihrer Syntax sehr streng. Schon
+scheinbare Kleinigkeiten wie Klammerfehler oder Vertauschung ähnlich
+aussehender Sonderzeichen (zum Beispiel~\texttt{\"{}} und~\texttt{'}) führen
+dazu, dass der Interpreter den Code nicht mehr versteht. Anfangs macht man
+viele solche Syntaxfehler, was frustrierend sein kann. Mit der Zeit wird das
+aber schnell besser!
+
+Achtung: Gelegentlich befindet sich ein Syntaxfehler an einer früheren Stelle
+als der Interpreter angibt. Das liegt daran, dass die Auswirkungen eines
+Fehlers manchmal erst später eine nicht auflösbare Inkonsistenz verursachen.
+
+Eine Anmerkung zu Umlauten: Wenn der Interpreter sich über diese beschwert,
+liegt das meistens an technischen Kodierungsproblemen. Am einfachsten ist es,
+in solchen Fällen dem Problem aus dem Weg zu gehen und Umlaute zu umschreiben.
+
+\paragraph{Inhaltliche Fehler} Neben Syntaxfehlern kann man inhaltliche Fehler
+begehen. Diese gehören leider zur schlimmeren Sorte, da der Interpreter sich
+über diese nicht beschwert -- die Schwierigkeit liegt bei diesen Fehlern darin,
+dass der Code zwar genau das tut, was er sagt; dass das aber nicht das ist, was
+man meinte. Ein einfaches Beispiel könnte folgender Code sein, der die Inhalte
+der Variablen~\texttt{a} und~\texttt{b} vertauschen soll:
+\begin{verbatim}
+    a = b
+    b = a
+\end{verbatim}
+Aber was macht dieser Ausschnitt wirklich? Zu Beginn haben die
+Variablen~\texttt{a} und~\texttt{b} irgendwelche Werte, zum Beispiel~3 und~7.
+Nach Ausführung der ersten Zeile haben beide Variablen denselben Wert,
+nämlich~7.  Das ändert sich auch nach Ausführung der letzten Zeile nichts mehr.
+
+Eine neue Idee muss her! Der alte Wert der Variablen~\texttt{a} muss in eine
+Hilfsvariable gesichert werden, bevor~\texttt{a} mit dem Inhalt von~\texttt{b}
+überschrieben wird:
+\begin{verbatim}
+    x = a
+    a = b
+    b = x
+\end{verbatim}
+Dieser Code funktioniert.\footnote{Wenn man sich in Python besser auskennt,
+weiß man, dass es sogar noch eine idiomatischere Lösung gibt: Zur Vertauschung
+kann man einfach die Anweisung \texttt{a, b = b, a} verwenden.}
+
+XXX Schleichwerbung für statische Typsysteme
 
 \begin{itemize}
-\item inhaltliche Fehler (Beispiel: Variablenvertauschung)
-\item Umlaute
 \item Grundtechniken im Debugging
 \end{itemize}
 
