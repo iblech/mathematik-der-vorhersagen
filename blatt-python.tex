@@ -9,10 +9,13 @@
 \usepackage{minted}
 \setminted{linenos}
 
+\newcommand{\XXX}[1]{\textbf{XXX:} #1}
+
 \begin{document}
 
 \maketitle{Python, eine moderne Programmiersprache}
 
+\tableofcontents
 
 \section{Was ist Python?}
 
@@ -63,9 +66,14 @@ und sich dann beendet. In Python sieht das so aus:
 print("Hallo Welt!")
 \end{minted}
 
-Tippe das Programm ab (oder kopiere den Quellcode von XXX) und führe es aus.
-Wenn es nicht klappt, dann melde dich bei uns (XXX Forum?). Die Farben dienen
-nur der Übersichtlichkeit.
+Tippe das Programm ab (\XXX{oder kopiere den Quellcode von}), speichere es unter
+einem Namen wie \texttt{hallo-welt.py} und führe es aus (\XXX{wie unter Windows?}).
+Wenn es nicht klappt, dann melde dich bei uns (\XXX{Forum?}).
+
+Die Farben dienen nur der Übersichtlichkeit; es ist üblich, verschiedene Arten
+von Codepassagen in jeweils anderen Farben zu setzen. Die Färbung muss nicht
+und kann nicht abgetippt werden; stattdessen wird jeder Quelltext-Editor
+selbstständig den Code einfärben.
 
 Die ersten beiden Zeilen finden sich in jedem Python-Programm. Die erste ist
 vor allem unter Linux und OS~X wichtig; sie ist der Indikator für das
@@ -75,7 +83,7 @@ Gründe.\footnote{Zeile~2 setzt fest, dass der Programmcode in der
 Zeichenkodierung UTF-8 (und nicht etwa in dem älteren Standard ISO-8859-1)
 interpretiert werden soll. Eine Zeichenkodierung gibt an, wie Umlaute und
 andere Zeichen, die über den Sprachschatz des amerikanischen ASCII-Standards
-aus den 70er Jahren (XXX) hinausgehen, als Bytes gespeichert werden sollen.}
+aus den 60er Jahren hinausgehen, als Bytes gespeichert werden sollen.}
 
 Zeile 3 ist eine Leerzeile. Leerzeilen haben für Python selbst keine Bedeutung,
 können also nach Belieben hinzugefügt oder entfernt werden. Es ist aber guter
@@ -87,14 +95,30 @@ Die eigentliche Arbeit wird durch Zeile~4 angestoßen. Dort wird die in Python
 vordefinierte Prozedur \mintinline{python}{print} mit dem \emph{Argument}
 \mintinline{python}{"Hallo, Welt!"} aufgerufen. Die Schreibweise soll an die in der Mathematik übliche
 Notation für Funktionen erinnern -- dort schreibt man zum Beispiel
-"`$\sin(5)$"'.
+"`$\sin(5)$"'. Im Programmierumfeld meint \emph{print} nur \emph{ausgeben},
+nicht \emph{drucken}. Der Begriff stammt aus einer Zeit, als es Bildschirme
+noch nicht gab und Computerausgaben tatsächlich ausgedruckt werden mussten.
 
 
 \subsection{Die interaktive Python-Shell}
 
-\begin{itemize}
-\item Einfache Rechnungen
-\end{itemize}
+Python-Programme speichert man, wie im vorherigen Abschnitt beschrieben, in
+Dateien. Zum schnellen Experimentieren eignet sich aber auch die
+\emph{interaktive Python-Shell}. In ihr kann man einzelne Python-Kommandos
+absetzen und erhält sofort Rückmeldung.
+
+\XXX{Beschreibung, wie man die Shell aufruft}
+
+Auf diese Weise kann man Python zum Beispiel als Taschenrechner verwenden:
+\begin{verbatim}
+$ python
+Python 2.7.3 (default, Dec 18 2014, 19:03:52)
+[GCC 4.6.3] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10
+55
+>>>
+\end{verbatim}
 
 
 \subsection{Programmierfehler und wie man mit ihnen umgeht}
@@ -109,7 +133,18 @@ print("Hallo, Welt!"
 \end{minted}
 nicht funktionieren, da die schließende Klammer fehlt. Syntaxfehler werden vom
 Python-Interpreter direkt nach dem Start, noch bevor er mit der Ausführung des
-Codes beginnt, erkannt und gemeldet.
+Codes beginnt, erkannt und gemeldet:
+\begin{verbatim}
+  File "test.py", line 2
+
+                        ^
+SyntaxError: invalid syntax
+\end{verbatim}
+Achtung: Gelegentlich befindet sich ein Syntaxfehler an einer früheren Stelle
+als der Interpreter angibt -- hier etwa befindet sich der Fehler in Zeile~1,
+Python berichtet jedoch einen Fehler in der (eigentlich gar nicht vorhandenen)
+Zeile~2. Das liegt daran, dass die Auswirkungen eines
+Fehlers manchmal erst später eine nicht auflösbare Inkonsistenz verursachen.
 
 Programmiersprachen wie Python sind in ihrer Syntax sehr streng. Schon
 scheinbare Kleinigkeiten wie Klammerfehler oder Vertauschung ähnlich
@@ -117,10 +152,6 @@ aussehender Sonderzeichen (zum Beispiel~\mintinline{python}{"} und~\mintinline{p
 dazu, dass der Interpreter den Code nicht mehr versteht. Anfangs macht man
 viele solche Syntaxfehler, was frustrierend sein kann. Mit der Zeit wird das
 aber schnell besser!
-
-Achtung: Gelegentlich befindet sich ein Syntaxfehler an einer früheren Stelle
-als der Interpreter angibt. Das liegt daran, dass die Auswirkungen eines
-Fehlers manchmal erst später eine nicht auflösbare Inkonsistenz verursachen.
 
 Eine Anmerkung zu Umlauten: Wenn der Interpreter sich über diese beschwert,
 liegt das meistens an technischen Kodierungsproblemen. Am einfachsten ist es,
@@ -153,11 +184,26 @@ Dieser Code funktioniert.\footnote{Wenn man sich in Python besser auskennt,
 weiß man, dass es sogar noch eine idiomatischere Lösung gibt: Zur Vertauschung
 kann man einfach die Anweisung \mintinline{python}{a, b = b, a} verwenden.}
 
-XXX Schleichwerbung für statische Typsysteme
 
-\begin{itemize}
-\item Grundtechniken im Debugging
-\end{itemize}
+\paragraph{Grundtechniken im Debugging} Unter \emph{Debugging} versteht man den
+Prozess, Syntaxfehler und inhaltliche Fehler im Programmcode zu beheben.
+Syntaxfehler werden vom Interpreter gemeldet; man behebt sie, indem man sich
+die betreffende Zeile genau anschaut und die Unstimmigkeit sucht. Manchmal
+möchte man einen Fehler partout nicht erkennen, dann hilft es, eine Pause zu
+machen oder den Code jemand anderem zu zeigen.
+
+Eine grundlegende Strategie, um inhaltliche Fehler zu beheben, besteht darin,
+den Inhalt von Variablen durch \mintinline{python}{print}-Anweisungen zu
+verfolgen, zum Beispiel so:
+\begin{minted}{python}
+print("VORHER", a, b)
+a = b
+print("DANACH", a, b)
+b = a
+print("AM ENDE", a, b)
+\end{minted}
+So kann man Widersprüche zwischen dem erwarteten und tatsächlichen Verhalten
+aufdecken.
 
 
 \section{Plotten}
