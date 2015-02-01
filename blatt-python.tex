@@ -1,7 +1,13 @@
+% Aufrufen mit: TEXINPUTS=minted/source: xelatex -shell-escape blatt-python.tex
 \documentclass{blatt}
 \let\raggedsection\centering
 
-\usepackage{mathpazo}
+\usepackage{fontspec}
+\usepackage[osf]{mathpazo}
+\usepackage[T1]{fontenc}
+
+\usepackage{minted}
+\setminted{linenos}
 
 \begin{document}
 
@@ -50,16 +56,16 @@ Das erste Programm, dass man schreibt, wenn man eine neue Programmiersprache
 lernt, ist \emph{Hallo Welt!}: Ein Programm, dass eine kurze Meldung ausgibt
 und sich dann beendet. In Python sieht das so aus:
 
-% XXX: Syntax Highlighting
-\begin{verbatim}
-    #!/usr/bin/env python
-    # -*- coding: utf-8 -*-
+\begin{minted}{python}
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-    print("Hallo Welt!")
-\end{verbatim}
+print("Hallo Welt!")
+\end{minted}
 
 Tippe das Programm ab (oder kopiere den Quellcode von XXX) und führe es aus.
-Wenn es nicht klappt, dann melde dich bei uns (XXX Forum?).
+Wenn es nicht klappt, dann melde dich bei uns (XXX Forum?). Die Farben dienen
+nur der Übersichtlichkeit.
 
 Die ersten beiden Zeilen finden sich in jedem Python-Programm. Die erste ist
 vor allem unter Linux und OS~X wichtig; sie ist der Indikator für das
@@ -78,8 +84,8 @@ Menschen übersichtlicher zu gestalten. Es gibt ja auch einen Grund, wieso es im
 Deutschen und vielen anderen natürlichen Sprachen Absätze gibt.
 
 Die eigentliche Arbeit wird durch Zeile~4 angestoßen. Dort wird die in Python
-vordefinierte Prozedur \texttt{print} mit dem \emph{Argument} \texttt{\"{}Hallo,
-Welt!\"} aufgerufen. Die Schreibweise soll an die in der Mathematik übliche
+vordefinierte Prozedur \mintinline{python}{print} mit dem \emph{Argument}
+\mintinline{python}{"Hallo, Welt!"} aufgerufen. Die Schreibweise soll an die in der Mathematik übliche
 Notation für Funktionen erinnern -- dort schreibt man zum Beispiel
 "`$\sin(5)$"'.
 
@@ -98,16 +104,16 @@ Beim Programmieren macht man Fehler. Von denen gibt es vor allem zwei Arten:
 \emph{Syntaxfehler} und \emph{inhaltliche Fehler}. Ein Syntaxfehler tritt auf,
 wenn man sich nicht an die Schreibregeln von Python hält. Zum Beispiel wird der
 Code
-\begin{verbatim}
-    print("Hallo, Welt!"
-\end{verbatim}
+\begin{minted}{python}
+print("Hallo, Welt!"
+\end{minted}
 nicht funktionieren, da die schließende Klammer fehlt. Syntaxfehler werden vom
 Python-Interpreter direkt nach dem Start, noch bevor er mit der Ausführung des
 Codes beginnt, erkannt und gemeldet.
 
 Programmiersprachen wie Python sind in ihrer Syntax sehr streng. Schon
 scheinbare Kleinigkeiten wie Klammerfehler oder Vertauschung ähnlich
-aussehender Sonderzeichen (zum Beispiel~\texttt{\"{}} und~\texttt{'}) führen
+aussehender Sonderzeichen (zum Beispiel~\mintinline{python}{"} und~\mintinline{python}{'}) führen
 dazu, dass der Interpreter den Code nicht mehr versteht. Anfangs macht man
 viele solche Syntaxfehler, was frustrierend sein kann. Mit der Zeit wird das
 aber schnell besser!
@@ -126,26 +132,26 @@ begehen. Diese gehören leider zur schlimmeren Sorte, da der Interpreter sich
 dass der Code zwar genau das tut, was er sagt; dass das aber nicht das ist, was
 man meinte. Ein einfaches Beispiel könnte folgender Code sein, der die Inhalte
 der Variablen~\texttt{a} und~\texttt{b} vertauschen soll:
-\begin{verbatim}
-    a = b
-    b = a
-\end{verbatim}
+\begin{minted}{python}
+a = b
+b = a
+\end{minted}
 Aber was macht dieser Ausschnitt wirklich? Zu Beginn haben die
 Variablen~\texttt{a} und~\texttt{b} irgendwelche Werte, zum Beispiel~3 und~7.
 Nach Ausführung der ersten Zeile haben beide Variablen denselben Wert,
-nämlich~7.  Das ändert sich auch nach Ausführung der letzten Zeile nichts mehr.
+nämlich~7.  Das ändert sich auch nach Ausführung der letzten Zeile nicht mehr.
 
 Eine neue Idee muss her! Der alte Wert der Variablen~\texttt{a} muss in eine
 Hilfsvariable gesichert werden, bevor~\texttt{a} mit dem Inhalt von~\texttt{b}
 überschrieben wird:
-\begin{verbatim}
-    x = a
-    a = b
-    b = x
-\end{verbatim}
+\begin{minted}{python}
+x = a
+a = b
+b = x
+\end{minted}
 Dieser Code funktioniert.\footnote{Wenn man sich in Python besser auskennt,
 weiß man, dass es sogar noch eine idiomatischere Lösung gibt: Zur Vertauschung
-kann man einfach die Anweisung \texttt{a, b = b, a} verwenden.}
+kann man einfach die Anweisung \mintinline{python}{a, b = b, a} verwenden.}
 
 XXX Schleichwerbung für statische Typsysteme
 
