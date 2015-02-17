@@ -18,7 +18,7 @@
 \RequirePackage{amsmath,amsthm,amssymb,amscd,color,graphicx}
 \RequirePackage{environ}
 \RequirePackage{framed}
-\RequirePackage[protrusion=true,expansion=true]{microtype}
+\ifxetex\else\RequirePackage[protrusion=true,expansion=true]{microtype}\fi
 \RequirePackage{lmodern}
 \RequirePackage{multicol}
 \RequirePackage{hyperref}

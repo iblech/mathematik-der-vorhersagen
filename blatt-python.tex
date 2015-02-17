@@ -2,9 +2,11 @@
 \documentclass{blatt}
 \let\raggedsection\centering
 
-\usepackage{fontspec}
+\usepackage{fontspec,xunicode}
 \usepackage[osf]{mathpazo}
-\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc} %EU1?
+%\defaultfontfeatures{Mapping=tex-text}
+%\setmainfont{Linux Libertine O}
 
 \usepackage{minted}
 \setminted{linenos}
@@ -132,7 +134,7 @@ Code
 print("Hallo, Welt!"
 \end{minted}
 nicht funktionieren, da die schließende Klammer fehlt. Syntaxfehler werden vom
-Python-Interpreter direkt nach dem Start, noch bevor er mit der Ausführung des
+Python-In\-ter\-pre\-ter direkt nach dem Start, noch bevor er mit der Ausführung des
 Codes beginnt, erkannt und gemeldet:
 \begin{verbatim}
   File "test.py", line 2
@@ -206,9 +208,21 @@ So kann man Widersprüche zwischen dem erwarteten und tatsächlichen Verhalten
 aufdecken.
 
 
-\section{Plotten}
+\section{Noch auszuarbeiten}
 
-
-\section{Newton-Verfahren}
+\begin{itemize}
+\item While-Schleifen anhand von "`Summe der ersten $n$ Zahlen"' erklären.
+Vollständigen Programmcode liefern, dann in Aufgaben Variationen fordern.
+Auch $\sum_n 1/n$ berechnen lassen, Problem erklären.
+\item Plotten. Dabei deutlich machen, dass man nicht Funktionen, sondern
+Vektoren von $x$- und $y$-Werten gegeneinander plottet. Sowohl anonyme als auch
+benannte Funktionen einführen. Als Beispiel vollständigen Programmcode liefern,
+der eine Sinuskurve plottet. Auch auf dreidimensionale Plots eingehen.
+\item Ableitungen numerisch berechnen.
+\item Online-Python-Lösungen prüfen.
+\item Irgendwo auch noch if-Abfragen unterbringen.
+\item Deadline für diese Punkte: Ende Februar
+\item Für später, auch in Abhängigkeit der Mathe-Blätter: Newton-Verfahren.
+\end{itemize}
 
 \end{document}
