@@ -13,6 +13,8 @@
 
 \newcommand{\XXX}[1]{\textbf{XXX:} #1}
 
+\newsavebox{\foobox}
+
 \begin{document}
 
 \maketitle{Python, eine moderne Programmiersprache}
@@ -52,13 +54,22 @@ klicke dich durch die Installation. Wähle die Python-Version~2.7 und unter
 Windows die 32-Bit-Version (auch, wenn dein Computer ein 64-Bit-Prozessor haben
 sollte).
 
+\paragraph{Übers Internet.} Wenn du Schwierigkeiten bei der Installation hast,
+schreib uns bitte an. In der Zwischenzeit kannst du aber auch übers Internet
+unseren Python-Server verwenden; dann musst du auf deinem eigenen Computer
+nichts installieren. Gehe dazu in einem Browser deine Wahl auf
+\url{http://speicherleck:????/}. Das Passwort lautet \texttt{XXX}. Bitte
+beachte: Das ist unser privater Server, und wir haben ihn nicht besonders
+gesichert. Du könntest also prinzipiell in unseren Dateien schnüffeln oder sie
+löschen. Bitte mach das nicht! \texttt{:-)}
+
 
 \section{Erste Schritte}
 
 \subsection{Hallo, Welt!}
 
 Das erste Programm, dass man schreibt, wenn man eine neue Programmiersprache
-lernt, ist \emph{Hallo Welt!}: Ein Programm, dass eine kurze Meldung ausgibt
+lernt, ist \emph{Hallo Welt}: Ein Programm, dass eine kurze Meldung ausgibt
 und sich dann beendet. In Python sieht das so aus:
 
 \begin{minted}{python}
@@ -164,7 +175,8 @@ begehen. Diese gehören leider zur schlimmeren Sorte, da der Interpreter sich
 über diese nicht beschwert -- die Schwierigkeit liegt bei diesen Fehlern darin,
 dass der Code zwar genau das tut, was er sagt; dass das aber nicht das ist, was
 man meinte. Ein einfaches Beispiel könnte folgender Code sein, der die Inhalte
-der Variablen~\texttt{a} und~\texttt{b} vertauschen soll:
+der Variablen~\texttt{a} und~\texttt{b} vertauschen soll (mehr zu Variablen im
+nächsten Abschnitt):
 \begin{minted}{python}
 a = b
 b = a
@@ -208,12 +220,190 @@ So kann man Widersprüche zwischen dem erwarteten und tatsächlichen Verhalten
 aufdecken.
 
 
+\section{Variablen und Kontrollstrukturen}
+
+Programme werden erst dann interessant, wenn sie durch veränderliche Variablen und
+\emph{Kontrollstrukturen} nicht einfach linear von oben nach unten ablaufen.
+Variablen sind Platzhalter für Daten, die sich während des Programmablaufs
+mehrmals ändern können. Zum Beispiel wird das Programm
+\begin{minted}{python}
+foo = 5
+print(foo)
+foo = 100
+print(foo)
+foo = foo + 3
+print(foo)
+\end{minted}
+die Zahlen \texttt{5}, \texttt{100} und \texttt{103} ausgeben. Dabei ist "`\texttt{foo}"'
+anders als \mintinline{python}{print} kein von Python vordefinierter
+Begriff; wir hätten die Variable auch anders nennen können.
+
+
+\subsection{For-Schleifen}
+
+Was ist die Summe der ersten~10 positiven natürlichen Zahlen? Ein
+Python-Programm, dass die Antwort auf diese Frage berechnet, könnte wie folgt
+aussehen:
+\begin{minted}{python}
+summe = 0
+summe = summe + 1
+summe = summe + 2
+summe = summe + 3
+summe = summe + 4
+summe = summe + 5
+summe = summe + 6
+summe = summe + 7
+summe = summe + 8
+summe = summe + 9
+summe = summe + 10
+\end{minted}
+Es ist offensichtlich, dass es keinen Spaß macht, diese Art Code zu schreiben!
+Eine einfache Idee, immer die nächste Zahl auf den aktuellen Zwischenstand zu
+addieren, wird hier in zehn Zeilen ausgebreitet. \textbf{Echte ProgrammierInnen
+sind nicht bereitet, derart repetitiven Code zu schreiben!} Und du solltest es
+auch nicht sein. (Was wäre, wenn die Aufgabe gefordert hätte, die ersten~1000
+Zahlen zu summieren?) Viel besser geht es mit einer \emph{For-Schleife}:
+\begin{minted}{python}
+summe = 0
+for i in range(11):
+    summe = summe + i
+\end{minted}
+Was passiert hier? \mintinline{python}{range(11)} ist die Liste der Zahlen
+von~\mintinline{python}{0} einschließlich bis~\mintinline{python}{11}
+ausschließlich. Das kann man in einer interaktiven Python-Shell auch
+überprüfen:
+\begin{verbatim}
+>>> range(11)
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+\end{verbatim}
+Durch das Schlüsselwort~\mintinline{python}{for} passiert nun folgendes: Der
+eingerückte Block wird mehrmals durchlaufen. Dabei hat die neue
+Variable~\mintinline{python}{i} im ersten Durchgang den
+Wert~\mintinline{python}{0}, im zweiten den Wert~\mintinline{python}{1}, und so
+weiter, bis schließlich im letzten Durchlauf~\mintinline{python}{i} den
+Wert~\mintinline{python}{10} hat.
+
+\begin{lrbox}{\foobox}\begin{minipage}{\textwidth}\begin{minted}{python}
+summe = 0
+for i in range(11):
+summe = summe + i
+\end{minted}
+\end{minipage}\end{lrbox}
+\begin{aufgabe}{Wo steckt der Fehler?}
+Erkläre, wieso folgender Code -- der doch ganz ähnlich aussieht -- nicht
+funktioniert.
+
+\usebox{\foobox}
+\end{aufgabe}
+
+\begin{aufgabe}{Summe der Quadratzahlen}
+Schreibe ein Python-Programm, dass die Summe der ersten~1000 Quadratzahlen
+bestimmt.
+\end{aufgabe}
+
+\begin{lrbox}{\foobox}\begin{minipage}{\textwidth}\begin{minted}{python}
+summe = 0
+for i in range(11):
+    for j in range(i):
+        summe = summe + 1
+\end{minted}
+\end{minipage}\end{lrbox}
+\begin{aufgabe}{Geschachtelte Schleifen}
+Was macht folgendes Programm? Füge
+gegebenenfalls~\mintinline{python}{print}-Anweisungen ein, um die Veränderungen
+der Variablen~\mintinline{python}{i} und~\mintinline{python}{j}
+nachzuverfolgen! Kannst du das Programm vereinfachen?
+
+\usebox{\foobox}
+\end{aufgabe}
+
+\begin{aufgabe}{Die harmonische Reihe}
+Schreibe ein Python-Programm, dass folgende unendliche Summe berechnet:
+\[ \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \cdots. \]
+Gibt es ein Problem?
+\end{aufgabe}
+
+
+\subsection{If-Abfragen}
+
+Was ist die Summe der ersten 100 geraden Zahlen? Eine Möglichkeit, die Antwort
+auf diese Frage zu finden, besteht darin, zunächst \emph{alle} ersten~100
+Zahlen durchzugehen (mit~\mintinline{python}{for}
+und~\mintinline{python}{range(101)}), dann aber nur im Fall einer geraden Zahl
+den Zähler~\mintinline{python}{summe} zu erhöhen. Das geht so:
+\begin{minted}{python}
+summe = 0
+for i in range(101):
+    if i % 2 == 0:
+        summe = summe + i
+\end{minted}
+Oder etwas ausführlicher:
+\begin{minted}{python}
+summe = 0
+for i in range(101):
+    if i % 2 == 0:
+        print("Die Zahl", i, "ist gerade! Addiere sie.")
+        summe = summe + i
+    else:
+        print("Die Zahl", i, "ist ungerade! Überspringe sie.")
+\end{minted}
+Das Prozentzeichen führt eine \emph{Modulo-Rechnung} durch; das Ergebnis
+von~\mintinline{python}{a \% b} ist der Rest, der bei der Division
+von~\mintinline{python}{a} durch~\mintinline{python}{b} übrig bleibt. In der
+Python-Shell kann man das anhand einiger Beispiele nachvollziehen:
+\begin{verbatim}
+>>> 10 % 4
+2
+>>> 11 % 4
+3
+>>> 12 % 4
+0
+>>> 13 % 4
+1
+\end{verbatim}
+Mit dem~\mintinline{python}{==}-Operator wird ein Vergleich durchgeführt:
+Stimmen die Zahlen links und rechts des Operators überein?
+\begin{verbatim}
+>>> 17 == 0
+False
+>>> 0 == 0
+True
+>>> 12 % 4 == 0
+True
+>>> 13 % 4 == 0
+False
+\end{verbatim}
+\emph{Achtung:} Verwechsle nicht~\mintinline{python}{a == b}
+mit~\mintinline{python}{a = b}. Der erste Operator vergleicht die
+Werte~\mintinline{python}{a} und~\mintinline{python}{b} miteinander (und
+gibt~\mintinline{python}{True} oder~\mintinline{python}{False} zurück, je
+nachdem, ob sie gleich oder ungleich sind). Der zweite Operator setzt die
+Variable~\mintinline{python}{a} auf den Wert
+von~\mintinline{python}{b}.\footnote{Wenn du die beiden Konstrukte doch
+verwechselst, bist du in guter Gesellschaft. Es gab schon manche gravierende
+Sicherheitslücke in Computersystemen, welche durch eine solche Unachtsamkeit
+verursacht wurde.}
+
+Mit dem~\mintinline{python}{if}-Schlüsselwort kann man erreichen, dass je
+nachdem, ob der Fall~\mintinline{python}{True} oder der
+Fall~\mintinline{python}{False} vorliegt, anderer Code ausgeführt wird.
+Im Beispielcode von Beginn dieses Abschnitts erhöhen wir die
+Variable~\mintinline{python}{summe} also nur dann um den Wert
+von~\mintinline{python}{i}, wenn~\mintinline{python}{i} bei Division durch~2
+keinen Rest lässt, wenn also~\mintinline{python}{i} gerade ist.
+
+\begin{aufgabe}{Perfekte Zahlen}
+Eine \emph{perfekte Zahl} ist eine positive Zahl mit der besonderen
+Eigenschaft, dass die Summe ihrer echten positiven Teiler sie selbst ist. Zum
+Beispiel ist die Zahl~$6$ eine perfekte Zahl, denn~$6 = 1 + 2 + 3$.
+Schreibe ein Python-Programm, dass von einer gegebenen Zahl überprüft, ob sie
+perfekt ist!
+\end{aufgabe}
+
+
 \section{Noch auszuarbeiten}
 
 \begin{itemize}
-\item While-Schleifen anhand von "`Summe der ersten $n$ Zahlen"' erklären.
-Vollständigen Programmcode liefern, dann in Aufgaben Variationen fordern.
-Auch $\sum_n 1/n$ berechnen lassen, Problem erklären.
 \item Plotten. Dabei deutlich machen, dass man nicht Funktionen, sondern
 Vektoren von $x$- und $y$-Werten gegeneinander plottet. Sowohl anonyme als auch
 benannte Funktionen einführen. Als Beispiel vollständigen Programmcode liefern,
