@@ -42,7 +42,7 @@ eingesetzt -- das ist der Aspekt, den wir beleuchten werden.
 \section{Installation von Python}
 
 Damit ein Computer Python-Programme ausführen kann, muss man zunächst einen
-\emph{Python-Interpreter} installieren. Das ist die erste Aufgabe an euch!
+\emph{Python-Interpreter} installieren. Das ist die erste Aufgabe an dich!
 
 \paragraph{Unter Ubuntu Linux und anderen Debian-Derivaten.}
 Öffne eine Konsole und setz den Befehl \texttt{sudo apt-get install
@@ -65,6 +65,30 @@ löschen. Bitte mach das nicht! \texttt{:-)}
 
 
 \section{Erste Schritte}
+
+Mit diesen Notizen möchten wir dir die Grundlagen der Python-Programmierung
+beibringen. Wenn du bisher noch keine Programmiersprache beherrschst, wirst du
+feststellen, dass das Erlernen gar nicht so einfach ist und etwas
+Zeit benötigt (bitte schreibe uns bei allen Fragen oder Problemen an!). Wir
+versprechen aber, dass es sich lohnt -- nicht nur für unseren Kurs auf der
+Schülerakademie, sondern auch für das weitere Leben.\footnote{Eine Freundin von
+uns war eine Zeit lang in einem Internet-Forum unterwegs, das jede Stunde, in
+der man aktiv auf dem Forum war, mit Punkten belohnte; diese Punkte konnte man
+dann in süße digitale Monster umtauschen. Offensichtlich hatte diese Freundin
+aber nicht Lust, Tag und Nacht auf dem Forum zu verbringen. Fünf Zeilen
+Python-Code später war das Problem gelöst: Sie schrieb ein Programm,
+das sich automatisiert jede Stunde einloggte, auf ein paar zufällige
+Diskussionsfäden klickte und sich dann wieder ausloggte.}
+
+Im Folgenden werden wir dir viele Code-Beispiele zeigen. Um Python zu erlernen,
+genügt es nicht, sich diese anzuschauen. Stattdessen musst du sie ausführen und
+mit ihnen \emph{experimentieren}: Was passiert, wenn ich folgende zwei Zeilen
+vertausche? Was passiert, wenn ich die Einrückung entferne? Kann ich die Idee
+nicht auch mit anderem Code ausdrücken?
+
+Wir stehen dir dabei gerne mit Rat und Tat zur Seite. Melde dich, wenn du nicht
+weiterkommst.
+
 
 \subsection{Hallo, Welt!}
 
@@ -401,6 +425,146 @@ perfekt ist!
 \end{aufgabe}
 
 
+\subsection{While-Schleifen}
+
+For-Schleifen sind super, wenn man von vornherein weiß, wie viele
+Schleifendurchläufe man sich wünscht. Für den Fall, dass man das nicht weiß,
+gibt es \emph{While-Schleifen}. Diese werden so lange durchlaufen, wie eine
+beliebige Bedingung, die man selbst angeben kann, erfüllt ist.
+
+Wie viele Zahlen muss man addieren, damit die Summe die Zahl~1000 übersteigt?
+Folgendes Programm berechnet die Antwort:
+\begin{minted}{python}
+summe = 0
+i     = 0
+
+while summe <= 1000:
+    i     = i + 1
+    summe = summe + i
+
+print("Die Summe der ersten", i, "Zahlen ist größer als 1000.")
+\end{minted}
+Manche Leute finden es schön, im Fall von mehreren Zuweisungen die
+Gleichheitszeichen untereinander auszurichten. Anderen ist das egal; Python
+selbst interessiert sich jedenfalls nicht dafür.
+
+Es gibt noch eine zweite Art und Weise, diesen Code zu formulieren:
+\begin{minted}{python}
+summe = 0
+i     = 0
+
+while True:
+    if summe > 1000:
+        break
+    i     = i + 1
+    summe = summe + i
+
+print("Die Summe der ersten", i, "Zahlen ist größer als 1000.")
+\end{minted}
+Als While-Bedingung steht hier~\mintinline{python}{True}; a priori wird der
+Schleifenrumpf (die Zeilen~5--8) also endlos ausgeführt. Falls jedoch der Wert
+der Variable~\mintinline{python}{summe} die Grenze~\mintinline{python}{1000}
+übersteigt, erreicht der Programmfluss Zeile~6. Das
+Schlüsselwort~\mintinline{python}{break} führt dann dazu, dass in diesem Fall die
+Schleife vorzeitig verlassen wird; die Code-Ausführung wird also auf Zeile~9
+fortgesetzt.
+
+Diese Art der Formulierung ist manchmal praktikabler -- zum Beispiel, wenn die
+Abbruchbedingung selbst das Resultat längerer, sich über mehrere Zeilen
+erstreckender Rechnungen ist.
+
+\begin{aufgabe}{Die Collatz-Vermutung}
+Denke dir eine positive natürliche Zahl. Ist sie gerade, so halbiere sie. Ist
+sie ungerade, so verdreifache sie und addiere anschließend Eins. Fahre in
+beiden Fällen auf dieselbe Art und Weise mit der entstehenden Zahl fort.
+Beginnt man beispielsweise mit der Zahl~$17$, so erhält man die Folge
+\[ 17,\quad52,\quad26,\quad13,\quad40,\quad20,\quad10,\quad5,\quad16,\quad8,\quad4,\quad2,\quad1,\quad4,\quad2,\quad1,\quad\ldots \]
+Die \emph{Collatz-Vermutung} besagt, dass man bei \emph{jeder} Ausgangszahl
+schlussendlich die Zahl~$1$ (und somit den Zykel~$4$--$2$--$1$) erreicht. Sie
+ist noch völlig offen; der berühmte Mathematiker Terence Tao ist der Meinung,
+dass Mathematik noch nicht reif für Probleme dieser Art sei.
+
+Schreibe ein Python-Programm, dass die Vermutung zumindest für die ersten
+10.000 Zahlen überprüft.
+\end{aufgabe}
+
+
+\section{Visualisierung von Daten}
+
+Im vorherigen Abschnitt hast du die grundlegenden Möglichkeiten der
+Programmflussgestaltung kennengelernt. Jetzt soll es darum gehen, wie man Daten
+-- zum Beispiel Punkte in der Ebene -- grafisch darstellen kann. Folgendes
+Programm etwa erzeugt Abbildung~\ref{fig:first-plot}.
+
+\begin{minted}{python}
+import numpy as np
+import matplotlib.pyplot as pl
+
+xs = [-3, 5, 2, 1]
+ys = [ 9, 1, 0, 4]
+
+pl.plot(xs, ys)
+pl.show()
+\end{minted}
+
+Was passiert hier? In den ersten beiden Zeilen werden die fürs Plotten
+benötigten Pakete geladen. Die Zeilen~4 und~5 definieren gemeinsam die
+darzustellenden Punkte; die Variable~\mintinline{python}{xs} enthält
+die~$x$-Werte, die Variable~\mintinline{python}{ys} enthält die~$y$-Werte der
+Punkte. Der Plot beginnt also mit dem Punkt~$(-3|9)$. Beide Variablen hätte man
+auch anders nennen können. Schließlich weisen wir in Zeile~7 die
+Grafikbibliothek an, einen Plot der Punkte vorzubereiten, welcher durch den
+Befehl in Zeile~8 angezeigt wird.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.4]{first-plot}
+  \caption{\label{fig:first-plot}Unser erster Plot mit Python.}
+\end{figure}
+
+Auf diese Weise kann man also \emph{Vektoren gegen Vektoren} plotten --
+irgendwelche~$x$-Werte gegen irgendwelche~$y$-Werte. Wenn man
+\emph{Funktionsgraphen} erstellen möchte, muss man selbst Hand anlegen:
+
+\begin{minted}{python}
+import numpy as np
+import matplotlib.pyplot as pl
+
+xs = np.linspace(0, 7, 300)
+ys = np.sin(xs)
+
+pl.plot(xs, ys)
+pl.show()
+\end{minted}
+
+Dieser Code erzeugt Abbildung~\ref{fig:sine-graph}. Während wir im vorherigen
+Beispiel manuell eine Liste von~$x$-Koordinaten eingaben, übernimmt das
+jetzt die Methode~\mintinline{python}{np.linspace}. Sie erzeugt gleichmäßig
+verteilte Stellen zwischen zwei Werten. Das kann man gut in der interaktiven
+Python-Shell erkennen:
+\begin{verbatim}
+>>> np.linspace(3, 7, 10)
+array([ 3.        ,  3.44444444,  3.88888889,  4.33333333,  4.77777778,
+        5.22222222,  5.66666667,  6.11111111,  6.55555556,  7.        ])
+\end{verbatim}
+In Zeile~5 rufen wir die Sinusfunktion auf -- und zwar für jeden~$x$-Wert in
+der Variablen~\mintinline{python}{xs} einmal. Die NumPy-Bibliothek, die wir
+verwenden, nimmt uns dabei das Schreiben der eigentlich dafür benötigten
+For-Schleife ab und erlaubt uns die bequeme Notation.
+\begin{verbatim}
+>>> np.sin(np.linspace(3,7,10))
+array([ 0.14112001, -0.29824342, -0.67965796, -0.9290145 , -0.99786291,
+       -0.8728259 , -0.57819824, -0.17122628,  0.26901506,  0.6569866 ])
+\end{verbatim}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.4]{sine-graph}
+  \caption{\label{fig:sine-graph}Die Sinus-Funktion.}
+\end{figure}
+
+
+
 \section{Noch auszuarbeiten}
 
 \begin{itemize}
@@ -410,7 +574,6 @@ benannte Funktionen einführen. Als Beispiel vollständigen Programmcode liefern
 der eine Sinuskurve plottet. Auch auf dreidimensionale Plots eingehen.
 \item Ableitungen numerisch berechnen.
 \item Online-Python-Lösungen prüfen.
-\item Irgendwo auch noch if-Abfragen unterbringen.
 \item Deadline für diese Punkte: Ende Februar
 \item Für später, auch in Abhängigkeit der Mathe-Blätter: Newton-Verfahren.
 \end{itemize}
