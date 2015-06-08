@@ -37,7 +37,7 @@
   \begin{picture}(0,0)
    \put(0,-1){\vbox{%
      \noindent Mathematik der Vorhersagen \hfill
-     JGW-Schülerakademie Papenburg-1 2015}}
+     JGW-Schülerakademie Papenburg 2015}}
    \put(13,-2){}  %{\includegraphics[scale=0.10]{../cover}}
   \end{picture}%
   \vspace*{1.7cm}}

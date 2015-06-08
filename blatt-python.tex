@@ -1,17 +1,16 @@
-% Aufrufen mit: TEXINPUTS=minted/source: xelatex -shell-escape blatt-python.tex
+% Aufrufen mit: TEXINPUTS=minted/source: pdflatex -shell-escape blatt-python.tex
 \documentclass{blatt}
 \let\raggedsection\centering
 
-\usepackage{fontspec,xunicode}
-\usepackage[osf]{mathpazo}
-\usepackage[T1]{fontenc} %EU1?
-%\defaultfontfeatures{Mapping=tex-text}
-%\setmainfont{Linux Libertine O}
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
 
 \usepackage{minted}
 \setminted{linenos}
 
 \newcommand{\XXX}[1]{\textbf{XXX:} #1}
+
+\newcommand{\RR}{\mathbb{R}}
 
 \newsavebox{\foobox}
 
@@ -26,7 +25,7 @@
 Python ist eine moderne Programmiersprache, die sich bei vielen Entwicklerinnen
 und Entwicklern großer Beliebtheit erfreut. Sie wurde Anfang der 90er Jahre von
 Guido van Rossum, einem niederländischen Programmierer, entworfen und wird seitdem
-von einer großem Team Freiwilliger als freies Open-Source-Projekt gepflegt.
+von einem großen Team Freiwilliger als freies Open-Source-Projekt gepflegt.
 
 Python ist eine so genannte höhere Programmiersprache, die die Zeit der
 Programmiererin oder des Programmierers über die Zeit des Computers stellt.
@@ -57,8 +56,9 @@ sollte).
 \paragraph{Übers Internet.} Wenn du Schwierigkeiten bei der Installation hast,
 schreib uns bitte an. In der Zwischenzeit kannst du aber auch übers Internet
 unseren Python-Server verwenden; dann musst du auf deinem eigenen Computer
-nichts installieren. Gehe dazu in einem Browser deine Wahl auf
-\url{http://speicherleck:????/}. Das Passwort lautet \texttt{XXX}. Bitte
+nichts installieren. Gehe dazu in einem Browser deiner Wahl auf
+\url{http://speicherleck:8888/}, klicke auf "`New"' und dann auf
+"`Python~2"'. Das Passwort haben wir dir per Mail mitgeteilt. Bitte
 beachte: Das ist unser privater Server, und wir haben ihn nicht besonders
 gesichert. Du könntest also prinzipiell in unseren Dateien schnüffeln oder sie
 löschen. Bitte mach das nicht! \texttt{:-)}
@@ -103,9 +103,13 @@ und sich dann beendet. In Python sieht das so aus:
 print("Hallo Welt!")
 \end{minted}
 
-Tippe das Programm ab (\XXX{oder kopiere den Quellcode von}), speichere es unter
-einem Namen wie \texttt{hallo-welt.py} und führe es aus (\XXX{wie unter Windows?}).
-Wenn es nicht klappt, dann melde dich bei uns (\XXX{Forum?}).
+Tippe das Programm ab, speichere es unter
+einem Namen wie \texttt{hallo-welt.py} und führe es aus. Wenn du Python noch
+nicht auf deinem Rechner installiert hast und unseren Server verwenden
+möchtest, findest du unter
+\url{http://speicherleck.de/iblech/stuff/hallo-welt.webm} ein kurzes Video, das
+die nötigen Schritte illustriert. Wenn es nicht klappt, dann melde dich bei uns
+oder im Forum.
 
 Die Farben dienen nur der Übersichtlichkeit; es ist üblich, verschiedene Arten
 von Codepassagen in jeweils anderen Farben zu setzen. Die Färbung muss nicht
@@ -144,8 +148,6 @@ Dateien. Zum schnellen Experimentieren eignet sich aber auch die
 \emph{interaktive Python-Shell}. In ihr kann man einzelne Python-Kommandos
 absetzen und erhält sofort Rückmeldung.
 
-\XXX{Beschreibung, wie man die Shell aufruft}
-
 Auf diese Weise kann man Python zum Beispiel als Taschenrechner verwenden:
 \begin{verbatim}
 $ python
@@ -156,6 +158,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 55
 >>>
 \end{verbatim}
+
+% XXX: unter Windows?
 
 
 \subsection{Programmierfehler und wie man mit ihnen umgeht}
@@ -187,7 +191,7 @@ Programmiersprachen wie Python sind in ihrer Syntax sehr streng. Schon
 scheinbare Kleinigkeiten wie Klammerfehler oder Vertauschung ähnlich
 aussehender Sonderzeichen (zum Beispiel~\mintinline{python}{"} und~\mintinline{python}{'}) führen
 dazu, dass der Interpreter den Code nicht mehr versteht. Anfangs macht man
-viele solche Syntaxfehler, was frustrierend sein kann. Mit der Zeit wird das
+viele solche Syntaxfehler, was frustrierend sein kann. Das wird
 aber schnell besser!
 
 Eine Anmerkung zu Umlauten: Wenn der Interpreter sich über diese beschwert,
@@ -266,7 +270,7 @@ Begriff; wir hätten die Variable auch anders nennen können.
 \subsection{For-Schleifen}
 
 Was ist die Summe der ersten~10 positiven natürlichen Zahlen? Ein
-Python-Programm, dass die Antwort auf diese Frage berechnet, könnte wie folgt
+Python-Programm, das die Antwort auf diese Frage berechnet, könnte wie folgt
 aussehen:
 \begin{minted}{python}
 summe = 0
@@ -321,7 +325,7 @@ funktioniert.
 \end{aufgabe}
 
 \begin{aufgabe}{Summe der Quadratzahlen}
-Schreibe ein Python-Programm, dass die Summe der ersten~1000 Quadratzahlen
+Schreibe ein Python-Programm, das die Summe der ersten~1000 Quadratzahlen
 bestimmt.
 \end{aufgabe}
 
@@ -372,7 +376,7 @@ for i in range(101):
         print("Die Zahl", i, "ist ungerade! Überspringe sie.")
 \end{minted}
 Das Prozentzeichen führt eine \emph{Modulo-Rechnung} durch; das Ergebnis
-von~\mintinline{python}{a \% b} ist der Rest, der bei der Division
+von~\mintinline{python}{a % b} ist der Rest, der bei der Division
 von~\mintinline{python}{a} durch~\mintinline{python}{b} übrig bleibt. In der
 Python-Shell kann man das anhand einiger Beispiele nachvollziehen:
 \begin{verbatim}
@@ -420,7 +424,7 @@ keinen Rest lässt, wenn also~\mintinline{python}{i} gerade ist.
 Eine \emph{perfekte Zahl} ist eine positive Zahl mit der besonderen
 Eigenschaft, dass die Summe ihrer echten positiven Teiler sie selbst ist. Zum
 Beispiel ist die Zahl~$6$ eine perfekte Zahl, denn~$6 = 1 + 2 + 3$.
-Schreibe ein Python-Programm, dass von einer gegebenen Zahl überprüft, ob sie
+Schreibe ein Python-Programm, das von einer gegebenen Zahl überprüft, ob sie
 perfekt ist!
 \end{aufgabe}
 
@@ -484,17 +488,22 @@ schlussendlich die Zahl~$1$ (und somit den Zykel~$4$--$2$--$1$) erreicht. Sie
 ist noch völlig offen; der berühmte Mathematiker Terence Tao ist der Meinung,
 dass Mathematik noch nicht reif für Probleme dieser Art sei.
 
-Schreibe ein Python-Programm, dass die Vermutung zumindest für die ersten
+Schreibe ein Python-Programm, das die Vermutung zumindest für die ersten
 10.000 Zahlen überprüft.
 \end{aufgabe}
 
 
 \section{Visualisierung von Daten}
 
+\subsection{Plots von Punkten}
+
 Im vorherigen Abschnitt hast du die grundlegenden Möglichkeiten der
 Programmflussgestaltung kennengelernt. Jetzt soll es darum gehen, wie man Daten
 -- zum Beispiel Punkte in der Ebene -- grafisch darstellen kann. Folgendes
-Programm etwa erzeugt Abbildung~\ref{fig:first-plot}.
+Programm etwa erzeugt Abbildung~\ref{fig:first-plot}.\footnote{Wenn du das
+Python von unserem Server verwendest, musst du als erste Zeile im Programm
+\texttt{\%matplotlib inline} angeben, so wie im Beispiel unter
+\url{http://speicherleck.de:8888/notebooks/einfacher-plot.ipynb}.}
 
 \begin{minted}{python}
 import numpy as np
@@ -503,28 +512,32 @@ import matplotlib.pyplot as pl
 xs = [-3, 5, 2, 1]
 ys = [ 9, 1, 0, 4]
 
-pl.plot(xs, ys)
+  pl.plot(xs, ys)
 pl.show()
-\end{minted}
+  \end{minted}
 
-Was passiert hier? In den ersten beiden Zeilen werden die fürs Plotten
-benötigten Pakete geladen. Die Zeilen~4 und~5 definieren gemeinsam die
-darzustellenden Punkte; die Variable~\mintinline{python}{xs} enthält
-die~$x$-Werte, die Variable~\mintinline{python}{ys} enthält die~$y$-Werte der
-Punkte. Der Plot beginnt also mit dem Punkt~$(-3|9)$. Beide Variablen hätte man
-auch anders nennen können. Schließlich weisen wir in Zeile~7 die
-Grafikbibliothek an, einen Plot der Punkte vorzubereiten, welcher durch den
-Befehl in Zeile~8 angezeigt wird.
+  Was passiert hier? In den ersten beiden Zeilen werden die fürs Plotten
+  benötigten Pakete geladen. Die Zeilen~4 und~5 definieren gemeinsam die
+  darzustellenden Punkte; die Variable~\mintinline{python}{xs} enthält
+  die~$x$-Werte, die Variable~\mintinline{python}{ys} enthält die~$y$-Werte der
+  Punkte. Der Plot beginnt also mit dem Punkt~$(-3|9)$. Beide Variablen hätte man
+  auch anders nennen können. Schließlich weisen wir in Zeile~7 die
+  Grafikbibliothek an, einen Plot der Punkte vorzubereiten, welcher durch den
+  Befehl in Zeile~8 angezeigt wird.
 
-\begin{figure}
+  \begin{figure}
   \centering
   \includegraphics[scale=0.4]{first-plot}
   \caption{\label{fig:first-plot}Unser erster Plot mit Python.}
-\end{figure}
+  \end{figure}
 
-Auf diese Weise kann man also \emph{Vektoren gegen Vektoren} plotten --
-irgendwelche~$x$-Werte gegen irgendwelche~$y$-Werte. Wenn man
-\emph{Funktionsgraphen} erstellen möchte, muss man selbst Hand anlegen:
+  Auf diese Weise kann man also \emph{Punkte} plotten --
+  irgendwelche~$x$-Werte gegen irgendwelche~$y$-Werte.
+
+
+\subsection{Plots von Funktionen I}
+
+Wenn man \emph{Funktionsgraphen} erstellen möchte, muss man selbst Hand anlegen:
 
 \begin{minted}{python}
 import numpy as np
@@ -564,18 +577,67 @@ array([ 0.14112001, -0.29824342, -0.67965796, -0.9290145 , -0.99786291,
 \end{figure}
 
 
+\subsection{Plots von Funktionen II}
 
-\section{Noch auszuarbeiten}
+Im vorherigen Beispiel ging es um die Sinus-Funktion, für die NumPy schon
+Unterstützung mitbringt. Aber was, wenn man eine Funktion plotten möchte, die
+NumPy nicht kennt?
 
-\begin{itemize}
-\item Plotten. Dabei deutlich machen, dass man nicht Funktionen, sondern
-Vektoren von $x$- und $y$-Werten gegeneinander plottet. Sowohl anonyme als auch
-benannte Funktionen einführen. Als Beispiel vollständigen Programmcode liefern,
-der eine Sinuskurve plottet. Auch auf dreidimensionale Plots eingehen.
-\item Ableitungen numerisch berechnen.
-\item Online-Python-Lösungen prüfen.
-\item Deadline für diese Punkte: Ende Februar
-\item Für später, auch in Abhängigkeit der Mathe-Blätter: Newton-Verfahren.
-\end{itemize}
+\begin{minted}{python}
+import numpy as np
+import matplotlib.pyplot as pl
+
+xs = np.linspace(0, 7, 300)
+ys = [ x*x-4*x+3 for x in xs ]
+
+pl.plot(xs, ys)
+pl.show()
+\end{minted}
+
+Der Ausdruck in eckigen Klammern auf Zeile~5 ist eine so genannte \emph{list
+comprehension}. Man liest ihn wie folgt: Die Variable~\mintinline{python}{ys}
+ist die Liste all derjenigen Ausdrücke~\mintinline{python}{x^2-4*x+3},
+wobei~\mintinline{python}{x} über alle Werte der Liste~\mintinline{python}{xs} läuft.
+Anders formuliert: Python geht nach und nach alle Werte der
+Liste~\mintinline{python}{xs} durch, also alle~$x$-Koordinaten. Der jeweils
+aktuelle Wert landet dabei in der Hilfsvariable~\mintinline{python}{x}. Zur neu
+entstehenden Liste~\mintinline{python}{ys} wird dann der
+Wert~\mintinline{python}{x*x-4*x+3}, in mathematischer Notation
+also~$x^2-4x+3$, hinzugefügt.
+
+Das Ergebnis zeigt Abbildung~\ref{fig:polynom}.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.4]{plot-polynomial}
+  \caption{\label{fig:polynom}Ein quadratisches Polynom.}
+\end{figure}
+
+\begin{aufgabe}{Plots von Ableitungen}
+Wir möchten die Ableitung der Funktion~$f : \RR \to \RR$ mit~$f(x) = x^2$
+untersuchen. Im nächsten Mathe-Blatt lernst du, wie man die Ableitung per Hand
+und exakt bestimmen kann; für jetzt soll uns jedoch eine \emph{numerische
+Approximation} genügen. Die Formel für den Differenzenquotient lautet
+\[ \frac{f(x + h) - f(x)}{h}. \]
+Dabei ist~$h$ frei wählbar; je kleiner~$h$ ist, desto näher liegt dieser
+Quotient an der tatsächlichen Ableitung~$f'(x)$ von~$f$ an der Stelle~$x$. (Der
+Idealfall wäre~$h = 0$, aber Null können wir in die Formel nicht einsetzen!)
+
+Schreibe ein Programm, das speziell für~$h = 0.1$ den Verlauf des
+Differenzenquotienten plottet! Orientiere dich dabei an dem Beispiel aus diesem
+Abschnitt.
+\end{aufgabe}
+
+\begin{aufgabe}{Numerische Schwierigkeiten}
+Diese Aufgabe setzt die vorherige fort. Welches seltsame Verhalten zeigt sich,
+wenn du~$h = 10^{-14}$ verwendest? In Python kannst du für diese Konstante
+einfach~\mintinline{python}{1e-14} schreiben.
+
+\emph{Hinweis:} Wenn du kein seltsames Verhalten feststellst, experimentiere
+mit anderen Werten von~$h$ -- noch kleineren oder größeren. Es kann sein, dass
+bei deiner Python-Installation das Problem bei einer anderen Grenze auftritt.
+\end{aufgabe}
 
 \end{document}
+
+\item Für später, auch in Abhängigkeit der Mathe-Blätter: Newton-Verfahren.
