@@ -4,6 +4,8 @@
 
 \usepackage[T1]{fontenc}
 \usepackage{libertine}
+\usepackage{xspace}
+\usepackage{booktabs}
 
 \usepackage{minted}
 \setminted{linenos}
@@ -638,6 +640,114 @@ mit anderen Werten von~$h$ -- noch kleineren oder größeren. Es kann sein, dass
 bei deiner Python-Installation das Problem bei einer anderen Grenze auftritt.
 \end{aufgabe}
 
-\end{document}
 
-\item Für später, auch in Abhängigkeit der Mathe-Blätter: Newton-Verfahren.
+\section{Das Newton-Verfahren}
+
+Sei~$f : \RR \to \RR$ eine Funktion, zum Beispiel~$f(x) = x^2 - 7x + 5$. Ein
+wichtige Frage mit vielen Anwendungsfällen lautet: \emph{Wie können wir
+Nullstellen von~$f$ finden?} In manchen Situationen ist das leicht. Etwa ist im
+Beispiel~$f$ eine quadratische Funktion, daher kann man mit der Lösungsformel
+für quadratische Gleichungen ("`Mitternachtsformel"') die Nullstellen sofort
+hinschreiben:
+\[ x_{1,2} = \frac{7 \pm \sqrt{(-7)^2 - 4 \cdot 1 \cdot 5}}{2 \cdot 1}. \]
+Aber was, wenn~$f$ kubisch oder quartisch ist? Was, wenn~$f$ einen noch höheren
+Grad hat? Was, wenn~$f$ gar kein Polynom ist, sondern zum Beispiel~$f(x) =
+\sin(x^2 - e^x) + \tan(\sqrt{x^2 + 1})$ als Funktionsterm hat? Dann gibt es
+keine allgemeine Formel, mit der man die Nullstellen über eine einfache
+Rechnung bestimmen könnte.\footnote{Für kubische und quartische Gleichungen
+gibt es noch Lösungsformeln wie die Mitternachtsformel. Man hat aber beweisen
+können, dass es für Polynomgleichungen höheren Grades \emph{keine
+Lösungsformeln geben kann}. Es ist also nicht nur so, dass wir Menschen zum
+jetzigen Zeitpunkt keine solche Formel kennen; vielmehr kann es rein
+prinzipiell eine solche Formel nicht geben. Dieses verblüffende Resultat lernt
+man im Mathe-Studium in jeder Vorlesung über \emph{Galoistheorie}.}
+Tatsächlich gibt es in vielen Fällen sogar \emph{überhaupt keine Formel} für
+die Nullstellen -- das kann man sogar beweisen.
+
+Wir müssen uns daher im Allgemeinen mit dem nächstbesten begnügen: numerische
+Approximationen für die Nullstellen. Das Newton-Verfahren ist eines der
+wichtigsten Verfahren zur numerischen Nullstellenberechnung.
+
+\newcommand{\Ans}{\texttt{Ans}\xspace}
+
+\begin{aufgabe}{Erste Schritte mit dem Newton-Verfahren}
+Hol dir einen Taschenrechner; ein ganz einfacher, nicht programmierbarer,
+genügt. Er muss nur eine Taste \Ans haben, die das zuletzt berechnete
+Ergebnis einfügt. Nimm deine Lieblingsfunktion~$f : \RR \to \RR$. Gib deine
+Lieblingszahl in den Taschenrechner ein. Tippe dann die Formel
+\[ \Ans - f(\Ans)/f'(\Ans) \]
+ein und betätige wiederholt die "`Jetzt ausrechnen"'-Taste, wobei du den Term
+für die Ableitung vorher per Hand ausrechnen musst (siehe
+Tabelle~\ref{tab:ableitungsregeln}). Wenn du zum Beispiel~$f(x) = x^2 - 7x + 5$
+gewählt hast, musst du die Formel
+\[ \Ans - (\Ans^2 - 7 \cdot \Ans + 5) / (2 \cdot \Ans - 7) \]
+verwenden (Klammern nicht vergessen). Probiere es aus! Mit ein bisschen Glück
+werden sich -- unabhängig von der zu Beginn gewählten Lieblingszahl -- die
+Zwischenergebnisse nach und nach immer weniger ändern und immer bessere
+Näherungen für eine Nullstelle von~$f$ liefern.
+\end{aufgabe}
+
+\begin{aufgabe}{Das Newton-Verfahren in Python}
+Schreibe ein Programm, dass das, was du in der vorherigen Aufgabe mit dem
+Taschenrechner gemacht hast, automatisiert. Zu deiner Lieblingsfunktion und
+deiner Lieblingszahl soll das Programm also die Formel~$\Ans -
+f(\Ans)/f'(\Ans)$ des Newton-Verfahrens immer wieder, sagen wir~30~Mal,
+verwenden und dabei alle Zwischenschritte ausgeben.
+
+Hier ein grober Plan, um das zu erreichen:
+\begin{itemize}
+\item Du brauchst eine Variable~\mintinline{python}{x}. Zu Beginn weist du
+dieser Variablen deine Lieblingszahl als Wert zu. Im Lauf des Programms ändert
+sie sich dann immer wieder, gemäß der Formel.
+\item Du brauchst eine For-Schleife, um die 30~Wiederholungen umsetzen zu
+können.
+\item Du musst die Formel in Python-Code übertragen.
+\item Du musst die Zwischenergebnisse mit~\mintinline{python}{print} ausgeben.
+\item Du brauchst nicht: While, If und Plots.
+\end{itemize}
+\vspace{-1em}
+\end{aufgabe}
+
+Das Newton-Verfahren funktioniert nicht immer, aber sehr oft. Außerdem liefert
+es, wenn es überhaupt funktioniert, meistens schon nach wenigen Schritten gute
+Näherungen für eine Nullstelle. Prinzipbedingt hat das Newton-Verfahren
+Schwierigkeiten bei Funktionen, die an manchen Stellen nicht differenzierbar
+sind. Schwierig sind außerdem Funktionen, die an manchen Bereichen sehr
+flach verlaufen: Denn auf solchen Bereichen ist die Ableitung fast Null, das
+Dividieren durch die Ableitung also problematisch.
+
+Zur Lösung der Programmieraufgabe musst du das nicht wissen, aber vielleichst
+bist du trotzdem neugierig, was die Idee hinter dem Newton-Verfahren ist und
+woher die Formel~$\Ans - f(\Ans)/f'(\Ans)$ kommt. Das erklärt der
+\href{https://de.wikipedia.org/wiki/Newton-Verfahren}{Wikipedia-Artikel zum
+Newton-Verfahren} recht gut. Wenn du gerade keine Lust auf Lesen hast, kannst
+du aber auch einfach ein YouTube-Video dazu anschauen:
+\url{https://www.youtube.com/watch?v=xGemDmrCqEk}
+
+\begin{table}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    Funktion $f(x)$ & Ableitung $f'(x)$ \\\midrule
+    $12$ & $0$ \\
+    $x$ & $1$ \\
+    $x^2$ & $2x$ \\
+    $x^3$ & $3x^2$ \\
+    $x^4$ & $4x^3$ \\
+    $\sin(x)$ & $\cos(x)$ \\
+    $\cos(x)$ & $-\sin(x)$ \\
+    $\ln(x)$ & $\frac{1}{x}$ \\
+    $e^x$ & $e^x$ \\
+    $\sqrt{x}$ & $\frac{1}{2\sqrt{x}}$ \\
+    $\sin(x)+x^3$ & $\cos(x)+3x^2$ \\
+    $\cos(x)+\ln(x)$ & $-\sin(x)+\frac{1}{x}$ \\
+    $17 \cdot \sin(x)$ & $17 \cdot \cos(x)$ \\
+    $x^3-5x^2+2x-8$ & $3x^2-10x+2$ \\
+    $g(x)+h(x)$ & $g'(x)+h'(x)$ \\
+    $g(x) \cdot h(x)$ & $g'(x) \cdot h(x) + g(x) \cdot h'(x)$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{\label{tab:ableitungsregeln}Praktische Regeln zum Ableiten.}
+\end{table}
+
+\end{document}
