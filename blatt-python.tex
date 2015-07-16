@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{libertine}
 \usepackage{xspace}
+\usepackage{mathtools}
 \usepackage{booktabs}
 
 \usepackage{minted}
@@ -13,6 +14,7 @@
 \newcommand{\XXX}[1]{\textbf{XXX:} #1}
 
 \newcommand{\RR}{\mathbb{R}}
+\newcommand{\defeq}{\vcentcolon=}
 
 \newsavebox{\foobox}
 
@@ -749,5 +751,61 @@ du aber auch einfach ein YouTube-Video dazu anschauen:
   \end{tabular}
   \caption{\label{tab:ableitungsregeln}Praktische Regeln zum Ableiten.}
 \end{table}
+
+
+\section{Das Gradientenabstiegsverfahren zur Minimumssuche}
+
+Sei~$f : \RR \to \RR$ eine Funktion. Wie können wir Minimal- und Maximalstellen
+von~$f$ finden? Wenn man~$f$ zeichnen kann, und wenn der Graph überschaubar
+ist, ist das natürlich ganz leicht. Auch ist es leicht, wenn man die Ableitung
+berechnen kann und wenn diese nicht zu kompliziert ist.
+
+Aber wie geht es allgemein? Und -- noch viel wichtiger -- wie geht man bei
+Funktionen vor, die nicht von einer Variable abhängen ("`$f(x)$"'), sondern von
+mehreren ("`$f(x,y,z,w)$"' oder "`$f(x_1,x_2,\ldots,x_{3400})$"')? In diesem Fall
+ist ein Plot völlig unmöglich.
+
+Dann kann man das \emph{Gradientenabstiegsverfahren} verwenden. Das gibt es in
+einer Variante für die Minimums- und einer für die Maximumssuche. Für die
+Minimumssuche läuft es so:
+
+Man startet mit irgendeiner Stelle~$x$. Dann berechnet man die Ableitung~$f'(x)$
+an dieser Stelle. Wenn diese positiv ist, so steigt die Funktion in einer
+Umgebung von~$x$ und man sollte das Minimum weiter links suchen. Man
+verringert~$x$ also ein bisschen, und zwar mit der Formel~$\tilde x \defeq x - \eta
+f'(x)$, und macht dann mit~$\tilde x$ als neue Stelle weiter. Wenn~$f'(x)$ dagegen
+negativ ist, so fällt die Funktion und man sollte das Minimum weiter rechts
+suchen. Das macht witzigerweise dieselbe Formel~$\tilde x \defeq x - \eta f'(x)$.
+
+Dabei ist~$\eta$ ein Parameter, mit dem man steuern kann, wie groß die Schritte
+sein sollen. Es gibt kein Patentrezept, wie man~$\eta$ wählen sollte; es gibt
+aber zumindest Heuristiken, mit denen man die Wahl von~$\eta$ während des
+Verfahrens dynamisch anpassen kann. So tief möchten wir an dieser Stelle aber
+nicht einsteigen.
+
+\begin{aufgabe}{Das eindimensionale Gradientenabstiegsverfahren in Python}
+Setze das Gradientenabstiegsverfahren in Python um. Schreib also Code, der mit
+dem Gradientenabstiegsverfahren versucht, ein Minimum deiner Lieblingsfunktion
+zu finden. Probiere verschiedene Werte von~$\eta$ aus, zum Beispiel~$\eta = 1$
+und~$\eta = 0.001$. Funktioniert das Verfahren gut? Läufst du in Probleme?
+
+Der grobe Plan dazu ist:
+\begin{itemize}
+\item Du brauchst eine Variable~\mintinline{python}{x}. Zu Beginn weist du
+dieser Variablen deine Lieblingszahl als Wert zu. Im Lauf des Programms ändert
+sie sich dann immer wieder, gemäß der Formel~$\tilde x = x - \eta f'(x)$.
+\item Du brauchst eine For- oder While-Schleife, um viele Wiederholungen umsetzen zu
+können.
+\item Du musst die Formel in Python-Code übertragen.
+\item Du musst die Zwischenergebnisse mit~\mintinline{python}{print} ausgeben.
+\item Du brauchst nicht: If und Plots.
+\end{itemize}
+\vspace{-1em}
+\end{aufgabe}
+
+Wieso heißt das Verfahren eigentlich \emph{Gradientenabstiegsverfahren}? Der
+Name erklärt sich am besten in mehreren Dimensionen, in denen das Verfahren
+auch funktioniert. Dann verwendet man statt~$f'(x)$ den Gradienten~$\nabla
+f(x)$.
 
 \end{document}
