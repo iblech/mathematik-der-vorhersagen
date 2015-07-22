@@ -41,7 +41,7 @@ class Network():
         delta = self.cDeriv(acts[-1], y) * self.sigmaDeriv(zs[-1])
         nabla_b[-1] = delta
         nabla_w[-1] = np.dot(delta, acts[-2].T)
-        for l in range(2, len(self.weights)):
+        for l in range(2, len(self.weights)+1):
             z   = zs[-l]
             spv = self.sigmaDeriv(z)
             delta = np.dot(self.weights[-l+1].T, delta) * spv
