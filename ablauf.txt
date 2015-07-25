@@ -1,5 +1,22 @@
 === Tag 0, abends
 
+* Vorstellung
+* Orgakram (u.a. Dokuforge)
+* Motivation
+* Mission/Plan: Videos und fertiges Ziffernprogramm
+
+https://www.youtube.com/watch?v=MzJ0CytAsec
+Windows Vista Speech Recognition Tested - Perl Scripting
+
+https://www.youtube.com/watch?v=M1ONXea0mXg
+Hound Internal Demo
+
+https://www.youtube.com/watch?v=zsVsUvx8ieo
+NVIDIA CES 2015 press conference: DRIVE PX Computer Vision (part 7)
+
+https://www.youtube.com/watch?v=qv6UVOQ0F44
+MarI/O - Machine Learning for Video Games
+
 
 === Tag 1
 
