@@ -1,0 +1,21 @@
+=== Analysis
+
+* Ableitung, auch mehrdimensional
+  * eindimensional
+  * höherdimensional
+  * Minima
+* Gradientenabstieg
+* (Newton-Verfahren)
+
+
+=== Lineare Algebra
+
+* Vektoren
+* Matrizen, Matrixmultiplikation (alle Varianten)
+* (lineare Gleichungssysteme, Inverse)
+* LA in Python
+* (Newton-Verfahren)
+* Bildmanipulation: Identitätsmatrix, Negieren, Spiegeln, Transponieren,
+  Addieren, komponentenweise Potenzieren, Rauschen, SVD
+  scipy-lectures.github.io/advances/image_processing
+* Lineare Regression
