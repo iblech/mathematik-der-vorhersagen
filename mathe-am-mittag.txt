@@ -6,12 +6,13 @@
 * Simpson-Paradoxon
 * Missinterpretation von Tests
 * Goodstein-Sequenzen
+* Brainfuck (die Programmiersprache)
 
 
 === Für alle
 
-* Rätselmittag: Zwerge in einer Reihe, blaue Augen, 100 Gefangene, Schrank und
-  Schlümpfe, Smullyan
+* Rätselmittag: Zwerge in einer Reihe, Ameisen, blaue Augen, 100 Gefangene,
+  Schrank und Schlümpfe, Smullyan
 * Quanten-Tic-Tac-Toe
 * Conways Armee
 
