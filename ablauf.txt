@@ -18,7 +18,16 @@ https://www.youtube.com/watch?v=qv6UVOQ0F44
 MarI/O - Machine Learning for Video Games
 
 
-=== Tag 1
+=== Tag 1: Analysis-Bootcamp
+
+* Definition der Ableitung im Eindimensionalen
+* Zwei Interpretationen: Steigung und lokale Approximation
+* Ableitungsregeln, insbesondere Kettenregel
+* Python: Gradientenabstieg
+
+* Ableitung im Mehrdimensionalen
+* Kettenregel
+* Python: Mehrdimensionaler Gradientenabstieg
 
 
 === Tag 2
