@@ -1,0 +1,16 @@
+=== Tag 0, abends
+
+
+=== Tag 1
+
+
+=== Tag 2
+
+Python in Ruhe:
+* Variablen und for/range. Damit Zahlen von 1 bis 100 summieren, Quadratzahlen
+  summieren.
+* if. Damit Primzahlen bis 100 finden, Collatz-Vermutung testen.
+* Listen. Damit Liste der ersten 100 Fibonacci-Zahlen erstellen.
+
+Danach Gradientenabstieg mit ansteigender Komplexität:
+1D/2D/nD, Gradientauswertung in ausgelagerter Funktion, ...
