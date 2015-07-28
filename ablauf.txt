@@ -42,9 +42,10 @@ Danach Gradientenabstieg mit ansteigender Komplexität:
 1D/2D/nD, Gradientauswertung in ausgelagerter Funktion, ...
 
 
-=== Wilde Idee: Bayes und Differentialgleichungen
+=== Tag 3, nur vormittags: Lineare Regression
 
-Denke an "Wohin bewegt sich ein abgestürztes Flugzeug auf dem Ozean".
+* Lineare Regression, zunächst aber noch mit Gradientenabstieg statt
+  Normalengleichung
 
 Sei f(t; a) sowas wie P(x(t) = a).
 

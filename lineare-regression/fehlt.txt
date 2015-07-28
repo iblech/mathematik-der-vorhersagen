@@ -1,0 +1,4 @@
+Hier fehlen noch unsere Programme zur linearen Regression:
+
+* mit Gradientenabstieg
+* mit Normalengleichung
