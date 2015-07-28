@@ -1,0 +1,15 @@
+Denke an "Wohin bewegt sich ein abgestürztes Flugzeug auf dem Ozean".
+
+Sei f(t; a) sowas wie P(x(t) = a).
+
+f(t+h; a)
+  = P(x(t+h) = a)
+  = P(x(t) + x'(t) h = a)
+  = P(x(t) = a - x'(t) h)
+  = f(t; a - x'(t) h)
+  = f(t; a) - f_2(t; a) x'(t) h
+
+Also: d/dt f(t; a) = -f_2(t; a) x'(t).
+
+Das Integral über a von f_2(t; a) x'(t) ist Null, die Normalisierung bleibt
+also erhalten.
