@@ -49,14 +49,10 @@ Danach Gradientenabstieg mit ansteigender Komplexität:
 
 Sei f(t; a) sowas wie P(x(t) = a).
 
-f(t+h; a)
-  = P(x(t+h) = a)
-  = P(x(t) + x'(t) h = a)
-  = P(x(t) = a - x'(t) h)
-  = f(t; a - x'(t) h)
-  = f(t; a) - f_2(t; a) x'(t) h
+=== Tag 4, nur nachmittags: Lineare Regression und neuronale Netze
 
-Also: d/dt f(t; a) = -f_2(t; a) x'(t).
+* jetzt mit Herleitung und Programmierung der Normalengleichung
+* Einstieg in neuronale Netze
 
 Das Integral über a von f_2(t; a) x'(t) ist Null, die Normalisierung bleibt
 also erhalten.
