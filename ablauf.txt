@@ -56,3 +56,9 @@ Sei f(t; a) sowas wie P(x(t) = a).
 
 Das Integral über a von f_2(t; a) x'(t) ist Null, die Normalisierung bleibt
 also erhalten.
+
+=== Tag 5: Neuronale Netze
+
+* Neuronale Netze mit einer einzigen Zwischenschicht, die aber beliebig
+  viele Neuronen enthalten darf
+* ???
