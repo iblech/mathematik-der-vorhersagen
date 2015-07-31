@@ -62,3 +62,10 @@ also erhalten.
 * Neuronale Netze mit einer einzigen Zwischenschicht, die aber beliebig
   viele Neuronen enthalten darf
 * ???
+
+
+=== Tag 6: Markov-Ketten und Rotationsvorbereitung
+
+* Kurze Einführung in Markov-Ketten: Wie funktionieren sie? Beispiele.
+* Wie zieht man aus Wahrscheinlichkeitsverteilungen?
+* Programmieren in Python
