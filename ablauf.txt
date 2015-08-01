@@ -69,3 +69,9 @@ also erhalten.
 * Kurze Einführung in Markov-Ketten: Wie funktionieren sie? Beispiele.
 * Wie zieht man aus Wahrscheinlichkeitsverteilungen?
 * Programmieren in Python
+
+
+=== Tag 7, nur nachmittags: Neuronale Netze
+
+* XOR in Matrixschreibweise
+* XOR-Training
