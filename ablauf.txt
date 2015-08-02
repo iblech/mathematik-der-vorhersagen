@@ -75,3 +75,20 @@ also erhalten.
 
 * XOR in Matrixschreibweise
 * XOR-Training
+
+
+=== Tag 8: Neuronale Netze und Projekte
+
+* Fertigstellung der XOR-Trainings-Programme
+* Weitere Entwicklungen bei neuronalen Netzen:
+  * Stochastischer Gradientenabstieg
+  * tanh-Neuronen
+  * (Cross-Entropy-Kostenfunktion)
+  * L2-Regularisierung um Overfitting zu begegnen
+  * Convolutional Neural Networks
+* Visualisierung von neuronalen Netzen und "Träume" von neuronalen Netzen
+  http://googleresearch.blogspot.de/2015/06/inceptionism-going-deeper-into-neural.html
+  http://www.matthewzeiler.com/pubs/arxive2013/eccv2014.pdf (Zeiler/Fergus:
+  Visualizing and Understanding Convolutional Networks)
+
+* Nachmittag???
