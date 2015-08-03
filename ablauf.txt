@@ -92,3 +92,10 @@ also erhalten.
   Visualizing and Understanding Convolutional Networks)
 
 * Nachmittag???
+
+
+=== Tag 9: Projekte
+
+* Monte-Carlo-Simulationen
+* Pseudoziffern
+* Neuronales Netz, das eine Maus steuert, um zum Futter zu gelangen
