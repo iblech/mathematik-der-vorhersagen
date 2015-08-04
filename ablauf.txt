@@ -26,20 +26,25 @@ MarI/O - Machine Learning for Video Games
 * Python: Gradientenabstieg
 
 * Ableitung im Mehrdimensionalen
+* Minimum finden
 * Kettenregel
 * Python: Mehrdimensionaler Gradientenabstieg
 
 
-=== Tag 2
+=== Tag 2: Python in Ruhe und LA-Bootcamp
 
-Python in Ruhe:
 * Variablen und for/range. Damit Zahlen von 1 bis 100 summieren, Quadratzahlen
   summieren.
 * if. Damit Primzahlen bis 100 finden, Collatz-Vermutung testen.
 * Listen. Damit Liste der ersten 100 Fibonacci-Zahlen erstellen.
+* Danach Gradientenabstieg mit ansteigender Komplexität:
+  1D/2D/nD, Gradientauswertung in ausgelagerter Funktion, ...
 
-Danach Gradientenabstieg mit ansteigender Komplexität:
-1D/2D/nD, Gradientauswertung in ausgelagerter Funktion, ...
+* Vektoren und Matrizen
+* Matrixmultiplikation
+* Übungsaufgaben zur Multiplikation (u.a. Demonstration von Nullteilern
+  und Nichtkommutativität)
+* Lösung linearer Gleichungssysteme (theoretisch und mit numpy.linalg.solve)
 
 
 === Tag 3, nur vormittags: Lineare Regression
@@ -47,15 +52,12 @@ Danach Gradientenabstieg mit ansteigender Komplexität:
 * Lineare Regression, zunächst aber noch mit Gradientenabstieg statt
   Normalengleichung
 
-Sei f(t; a) sowas wie P(x(t) = a).
 
 === Tag 4, nur nachmittags: Lineare Regression und neuronale Netze
 
 * jetzt mit Herleitung und Programmierung der Normalengleichung
 * Einstieg in neuronale Netze
 
-Das Integral über a von f_2(t; a) x'(t) ist Null, die Normalisierung bleibt
-also erhalten.
 
 === Tag 5: Neuronale Netze
 
@@ -99,3 +101,30 @@ also erhalten.
 * Monte-Carlo-Simulationen
 * Pseudoziffern
 * Neuronales Netz, das eine Maus steuert, um zum Futter zu gelangen
+
+
+=== Tag 10, nur vormittags: Verabschiedung
+
+* :-(
+* Zugausstieg verpassen
+
+
+=== Wilde Ideen
+
+* Bayes und Differentialgleichungen
+
+  Denke an "Wohin bewegt sich ein abgestürztes Flugzeug auf dem Ozean".
+
+  Sei f(t; a) sowas wie P(x(t) = a).
+
+  f(t+h; a)
+    = P(x(t+h) = a)
+    = P(x(t) + x'(t) h = a)
+    = P(x(t) = a - x'(t) h)
+    = f(t; a - x'(t) h)
+    = f(t; a) - f_2(t; a) x'(t) h
+
+  Also: d/dt f(t; a) = -f_2(t; a) x'(t).
+
+  Das Integral über a von f_2(t; a) x'(t) ist Null, die Normalisierung bleibt
+  also erhalten.
