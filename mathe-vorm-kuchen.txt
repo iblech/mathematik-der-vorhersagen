@@ -1,0 +1,23 @@
+=== Leichte Rätsel
+
+* Ameisen
+* Münzen
+* Zwerge, die aus einer Höhle herauskommen und sich sortieren müssen
+* Zwei Bonbontüten
+* Quanten-Tic-Tac-Toe
+* Schokolade mit Zartbitterstück unten links
+
+
+=== Schwere Rätsel
+
+* Blaue Augen
+* Hundert Gefangene
+* Kuchen
+* Zwerge mit Zahlen
+* Collatz
+
+
+=== Geheime Rätsel
+
+* Königszwergenrätsel (kursintern): Unendlich viele Zwerge, Auswahlaxiom
+* Smullyan (beim Ausflug)

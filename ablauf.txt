@@ -20,6 +20,7 @@ MarI/O - Machine Learning for Video Games
 
 === Tag 1: Analysis-Bootcamp
 
+* Zwerge in einer Reihe
 * Definition der Ableitung im Eindimensionalen
 * Zwei Interpretationen: Steigung und lokale Approximation
 * Ableitungsregeln, insbesondere Kettenregel
@@ -128,3 +129,27 @@ MarI/O - Machine Learning for Video Games
 
   Das Integral über a von f_2(t; a) x'(t) ist Null, die Normalisierung bleibt
   also erhalten.
+
+* Brainstorm für "Mathe am Mittag" an Tag 0:
+
+  Im Kurs:
+  * Collatz-Vermutung
+  * Unendliche Kettenbrüche, goldener Schnitt, Fibonacci-Zahlen
+  * Buffons Nadel
+  * Simpson-Paradoxon
+  * Missinterpretation von Tests
+  * Goodstein-Sequenzen
+  * Brainfuck (die Programmiersprache)
+
+  Für alle:
+  * Rätselmittag: Zwerge in einer Reihe, Ameisen, blaue Augen, 100 Gefangene,
+    Schrank und Schlümpfe, Smullyan
+  * Quanten-Tic-Tac-Toe
+  * Conways Armee
+
+  Lang:
+  * Fraktale programmieren
+  * Haskell
+  * Kryptographie
+  * Unendlichkeit
+  * Orbitalmechanik
