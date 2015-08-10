@@ -137,3 +137,9 @@ for i in range(5000):
       printTimetable(zeiten, kurse, l)
 
 printTimetable(zeiten, kurse, l)
+
+# Fixe Idee: Kann man ein Gradientenabstiegsverfahren verwenden? Zunaechst
+# natuerlich nicht. Hier ist ja nichts kontinuierlich. Aber was, wenn man im
+# Modell erlaubt, dass sich Personen kontinuierlich aufteilen koennen?
+# Zum Beispiel: Zu 10% gehe ich zu Zeitpunkt 1 in Kurs 1, zu 70% in Kurs 2, zu
+# 20% in Kurs 3.
