@@ -78,18 +78,8 @@ def printTimetable(zeiten, kurse, (personenCounts, timetable)):
   print("Maximalzahl anwesender Personen in einem Slot: {0}".format(max(personenCounts)))
   print("Median      anwesender Personen in einem Slot: {0}".format(np.median(personenCounts)))
 
-#eigeneVortraege = [(k,z) for k in kurse for z in zeiten]
-#eigeneVortraege = eigeneVortraege * 3 # + [(1, 800) , (2, 800), (3, 800), (1, 1000), (4,1200), (5, 1100), (6, 1200), (4, 1100), (5, 1000), (6,800)]
-
-# 0(1, 800)3	2(2, 800)5	4(3, 800)1
-# 1(1, 900)2	3(2, 900)4	5(3, 900)0
-
-# 0,6,12(1, 800)11, 15, 17	2,8,14(2, 800)1, 5, 7		4,10,16(3, 800)3,9,13,
-# 1,7,13(1, 900)10, 14, 16	3,9,15(2, 900)0, 4, 6		5,11,17(3, 900)2,8,12,
-
-#print(checkMinimalAttendance(kurse, zeiten, 49, [[(3, 900)], [(3, 800)], [(1, 900)], [(1, 800)], [(2, 900)], [(2,800)]]))
-
 def drawZuteilungen(kurse, zeiten, eigeneVortraege):
+  kurse = list(kurse)
   if eigeneVortraege:
     random.shuffle(kurse)
     for ss in drawSlots([k for k in kurse if k != eigeneVortraege[0][0]], [z for z in zeiten if z != eigeneVortraege[0][1]]):
@@ -115,8 +105,8 @@ def dump(xs):
 
 l = None
 
-# 100 zufaellige Starts versuchen
-for i in range(50000):
+# 500 zufaellige Starts versuchen
+for i in range(500):
   for sss in drawZuteilungenMitMinimalbedingung(kurse, zeiten, 8, eigeneVortraege, 200):
     (personenCounts, tt) = createTimetable(zeiten, kurse, eigeneVortraege, sss)
     # Wir bevorzugen solche Loesungen, bei denen ...
