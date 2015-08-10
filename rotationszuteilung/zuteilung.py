@@ -73,6 +73,41 @@ for k, a in zip(kurse, anzahlen):
 kurse = [1, 2]
 eigeneVortraege = [(1, 800), (1, 800), (1, 900), (1, 900), (2, 800), (2, 800), (2, 900), (2, 900)]"""
 
+def getIndFromTime(zeit, zeiten):
+  for n in range(len(zeiten)):
+    if zeiten[n] == zeit:
+      return n
+
+def getIndFromKurs(kurs, kurse):
+  for n in range(len(kurse)):
+    if kurse[n] == kurs:
+      return n
+
+def createTimetable(zeiten, kurse, eigeneVortraege, zuteilungsliste):
+  numAtt = len(eigeneVortraege)
+  timetable = [[' ' for z in zeiten] for k in kurse]
+  indAtt = 0
+  for eigenerVortrag, hoereVortraege in zip(eigeneVortraege, zuteilungsliste):
+    kursEigenerVortrag = eigenerVortrag[0]
+    zeitEigenerVortrag = eigenerVortrag[1]
+    timetable[getIndFromKurs(kursEigenerVortrag, kurse)][getIndFromTime(zeitEigenerVortrag, zeiten)] += str(indAtt) + 'V, '
+    for kursZuhoerer, zeitZuhoerer in hoereVortraege:
+      timetable[getIndFromKurs(kursZuhoerer, kurse)][getIndFromTime(zeitZuhoerer, zeiten)] += str(indAtt) + ', '
+    indAtt += 1
+  return timetable
+
+def printTimetable(zeiten, kurse, timetable):
+  n = 0
+  for kurs in timetable:
+    print("Kurs {0}".format(kurse[n]))
+    print("-----------------")
+    m = 0
+    for zeit in kurs:
+      print(str(zeiten[m]) + "\t" + zeit)
+      m += 1
+    n += 1
+      
+
 #eigeneVortraege = [(k,z) for k in kurse for z in zeiten]
 #eigeneVortraege = eigeneVortraege * 3 # + [(1, 800) , (2, 800), (3, 800), (1, 1000), (4,1200), (5, 1100), (6, 1200), (4, 1100), (5, 1000), (6,800)]
 
@@ -104,4 +139,19 @@ def dump(xs):
   for x in xs:
     print(x)
 
-dump(drawZuteilungenMitMinimalbedingung(kurse, zeiten, 1, eigeneVortraege))
+l = (drawZuteilungenMitMinimalbedingung(kurse, zeiten, 1, eigeneVortraege))
+#dump(drawSlots__([800,900,1000,1200], [1,2,3,4,5]))
+
+firstex = l.next()
+tt = createTimetable(zeiten, kurse, eigeneVortraege, firstex)
+printTimetable(zeiten, kurse, tt)
+
+
+def ausgabe(zuteilung, kurse, zeiten):
+ 
+ kurszeit = [[]for i in range(kurse)]
+
+#for i in bind([
+
+#for i in bind([1,2,3], lambda x: bind([4,5,6], lambda y: ([(x,y)] if (x + y) % 2 == 0 else []))):
+#   print(i)
