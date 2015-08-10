@@ -87,6 +87,7 @@ def printTimetable(zeiten, kurse, (anzahlRespektierterAntiWuensche, personenCoun
   print("Minimalzahl anwesender Personen in einem Slot: {0}".format(min(personenCounts)))
   print("Maximalzahl anwesender Personen in einem Slot: {0}".format(max(personenCounts)))
   print("Median      anwesender Personen in einem Slot: {0}".format(np.median(personenCounts)))
+  print("Personenanzahlen: " + str(sorted(personenCounts)))
 
 def drawZuteilungen(kurse, zeiten, eigeneVortraege, antiWuensche):
   kurse = list(kurse)
@@ -113,18 +114,25 @@ def dump(xs):
   for x in xs:
     print(x)
 
+# Wir bevorzugen solche Loesungen, bei denen ...
+# ... die Minimalzahl Personen in irgendeinem Slot moeglichst gross,
+# ... die Maximalzahl moeglichst klein,
+# ... der Median moeglichst gross,
+# ... die Anzahl der Slots mit Minimalbesetzung moeglichst klein,
+# ... die Anzahl der Slots mit Maximalbesetzung moeglichst klein und
+# ... die Anzahl der Slots mit insgesamt 15 Personen moeglichst gross
+# ist. Dann sind die Kinder naemlich gleichmaessiger verteilt.
+# Ja, der letzte Punkt ist etwas ad hoc.
+def cost(cs):
+  return [-min(cs), max(cs), -np.median(cs), len([1 for c in cs if c == min(cs)]), len([1 for c in cs if c == max(cs)]), -len([1 for c in cs if c == 15])]
+
 l = None
 
 # viele zufaellige Starts versuchen
 for i in range(5000):
-  for sss in drawZuteilungenMitMinimalbedingung(kurse, zeiten, 8, eigeneVortraege, antiWuensche, 200):
+  for sss in drawZuteilungenMitMinimalbedingung(kurse, zeiten, 8, eigeneVortraege, antiWuensche, 150):
     (anzahlRespektierterAntiWuensche, personenCounts, tt) = createTimetable(zeiten, kurse, eigeneVortraege, antiWuensche, sss)
-    # Wir bevorzugen solche Loesungen, bei denen ...
-    # ... die Minimalzahl Personen in irgendeinem Slot moeglichst gross,
-    # ... die Maximalzahl moeglichst klein und
-    # ... der Median moeglichst gross
-    # ist. Dann sind die Kinder naemlich gleichmaessiger verteilt.
-    if not l or min(l[1]) < min(personenCounts) or (min(l[1]) == min(personenCounts) and np.median(l[1]) < np.median(personenCounts)) or (min(l[1]) == min(personenCounts) and np.median(l[1]) == np.median(personenCounts) and max(l[1]) > max(personenCounts)):
+    if not l or cost(l[1]) > cost(personenCounts):
       l = (anzahlRespektierterAntiWuensche, personenCounts, tt)
       printTimetable(zeiten, kurse, l)
 
