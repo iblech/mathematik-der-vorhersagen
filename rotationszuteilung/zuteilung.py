@@ -1,12 +1,4 @@
-#def descent(listOldArrangements, remainingAttendants, 
-
 import random
-
-def bind(xs, f):
-  for x in xs:
-    for y in f(x):
-      yield y
-      
 
 # (kursnummer, zeitnummer)
 # (kurs, praeszeit)
@@ -18,25 +10,11 @@ def bind(xs, f):
 
 slots = [(kurs, zeit) for kurs in [1,2,3,4] for zeit in [800,900,1000,1100,1200]]
 
-def drawSlots(slots, n):
-  if n == 0:
-    return [ [] ]
-  else:
-    return bind(slots, lambda (kurs,zeit): bind(drawSlots([(k,z) for (k,z) in slots if z != zeit], n-1), lambda ss: [[(kurs,zeit)] + ss]))
-
-def drawSlots_(slots, n):
-  if n == 0:
-    yield []
-  else:
-    for (kurs,zeit) in slots:
-      for ss in drawSlots_([(k,z) for (k,z) in slots if z != zeit], n-1):
-	yield [(kurs,zeit)] + ss
-
-def drawSlots__(kurse, zeiten):
+def drawSlots(kurse, zeiten):
   if zeiten:
     for k in kurse:
       # (zeiten[0], k)
-      for ss in drawSlots__([k__ for k__ in kurse if k__ != k], zeiten[1:]):
+      for ss in drawSlots([k__ for k__ in kurse if k__ != k], zeiten[1:]):
 	yield [(k,zeiten[0])] + ss
   else:
     yield []
@@ -68,20 +46,6 @@ for k, a in zip(kurse, anzahlen):
     eigeneVortraege += [(k,z), (k,z), (k,z)]
   if a % 3 != 0:
     eigeneVortraege += [(k, zeiten[-1])]
-    
-"""zeiten = [800, 900]
-kurse = [1, 2]
-eigeneVortraege = [(1, 800), (1, 800), (1, 900), (1, 900), (2, 800), (2, 800), (2, 900), (2, 900)]"""
-
-def getIndFromTime(zeit, zeiten):
-  for n in range(len(zeiten)):
-    if zeiten[n] == zeit:
-      return n
-
-def getIndFromKurs(kurs, kurse):
-  for n in range(len(kurse)):
-    if kurse[n] == kurs:
-      return n
 
 def createTimetable(zeiten, kurse, eigeneVortraege, zuteilungsliste):
   numAtt = len(eigeneVortraege)
@@ -90,9 +54,9 @@ def createTimetable(zeiten, kurse, eigeneVortraege, zuteilungsliste):
   for eigenerVortrag, hoereVortraege in zip(eigeneVortraege, zuteilungsliste):
     kursEigenerVortrag = eigenerVortrag[0]
     zeitEigenerVortrag = eigenerVortrag[1]
-    timetable[getIndFromKurs(kursEigenerVortrag, kurse)][getIndFromTime(zeitEigenerVortrag, zeiten)] += str(indAtt) + 'V, '
+    timetable[kurse.index(kursEigenerVortrag)][zeiten.index(zeitEigenerVortrag)] += str(indAtt) + 'V, '
     for kursZuhoerer, zeitZuhoerer in hoereVortraege:
-      timetable[getIndFromKurs(kursZuhoerer, kurse)][getIndFromTime(zeitZuhoerer, zeiten)] += str(indAtt) + ', '
+      timetable[kurse.index(kursZuhoerer)][zeiten.index(zeitZuhoerer)] += str(indAtt) + ', '
     indAtt += 1
   return timetable
 
@@ -122,7 +86,7 @@ def printTimetable(zeiten, kurse, timetable):
 def drawZuteilungen(kurse, zeiten, eigeneVortraege):
   if eigeneVortraege:
     random.shuffle(kurse)
-    for ss in drawSlots__([k for k in kurse if k != eigeneVortraege[0][0]], [z for z in zeiten if z != eigeneVortraege[0][1]]):
+    for ss in drawSlots([k for k in kurse if k != eigeneVortraege[0][0]], [z for z in zeiten if z != eigeneVortraege[0][1]]):
       random.shuffle(kurse)
       for sss in drawZuteilungen(kurse, zeiten, eigeneVortraege[1:]):
 	yield [ss] + sss
@@ -145,13 +109,3 @@ l = (drawZuteilungenMitMinimalbedingung(kurse, zeiten, 1, eigeneVortraege))
 firstex = l.next()
 tt = createTimetable(zeiten, kurse, eigeneVortraege, firstex)
 printTimetable(zeiten, kurse, tt)
-
-
-def ausgabe(zuteilung, kurse, zeiten):
- 
- kurszeit = [[]for i in range(kurse)]
-
-#for i in bind([
-
-#for i in bind([1,2,3], lambda x: bind([4,5,6], lambda y: ([(x,y)] if (x + y) % 2 == 0 else []))):
-#   print(i)
