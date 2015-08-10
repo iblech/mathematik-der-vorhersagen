@@ -113,8 +113,8 @@ def dump(xs):
 
 l = None
 
-# 500 zufaellige Starts versuchen
-for i in range(500):
+# viele zufaellige Starts versuchen
+for i in range(5000):
   for sss in drawZuteilungenMitMinimalbedingung(kurse, zeiten, 8, eigeneVortraege, antiWuensche, 200):
     (anzahlRespektierterAntiWuensche, personenCounts, tt) = createTimetable(zeiten, kurse, eigeneVortraege, antiWuensche, sss)
     # Wir bevorzugen solche Loesungen, bei denen ...
@@ -122,7 +122,7 @@ for i in range(500):
     # ... die Maximalzahl moeglichst klein und
     # ... der Median moeglichst gross
     # ist. Dann sind die Kinder naemlich gleichmaessiger verteilt.
-    if not l or min(l[1]) < min(personenCounts) or (min(l[1]) == min(personenCounts) and max(l[1]) > max(personenCounts)) or (min(l[1]) == min(personenCounts) and max(l[1]) == max(personenCounts) and np.median(l[1]) < np.median(personenCounts)):
+    if not l or min(l[1]) < min(personenCounts) or (min(l[1]) == min(personenCounts) and np.median(l[1]) < np.median(personenCounts)) or (min(l[1]) == min(personenCounts) and np.median(l[1]) == np.median(personenCounts) and max(l[1]) > max(personenCounts)):
       l = (anzahlRespektierterAntiWuensche, personenCounts, tt)
       printTimetable(zeiten, kurse, l)
 
