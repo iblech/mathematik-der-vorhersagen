@@ -42,27 +42,34 @@ zeiten          = [800, 900, 1000, 1100, 1200]
 kurse           = [1, 2, 3, 4, 5, 6]
 anzahlen 	= [16, 16, 16, 15, 16, 15]
 eigeneVortraege = []
+antiWuensche    = []
 for k, a in zip(kurse, anzahlen):
+  moeglicheKurseZumBesuchen = [ k_ for k_ in kurse if k_ != k ]
   for z in zeiten:
     eigeneVortraege += [(k,z), (k,z), (k,z)]
+    antiWuensche    += [random.choice(moeglicheKurseZumBesuchen), random.choice(moeglicheKurseZumBesuchen), random.choice(moeglicheKurseZumBesuchen)]
   if a % 3 != 0:
     eigeneVortraege += [(k, zeiten[-1])]
+    antiWuensche    += [random.choice(moeglicheKurseZumBesuchen)]
 
-def createTimetable(zeiten, kurse, eigeneVortraege, zuteilungsliste):
+def createTimetable(zeiten, kurse, eigeneVortraege, antiWuensche, zuteilungsliste):
   numAtt = len(eigeneVortraege)
   timetable = [[' ' for z in zeiten] for k in kurse]
   indAtt = 0
-  for eigenerVortrag, hoereVortraege in zip(eigeneVortraege, zuteilungsliste):
+  anzahlRespektierterAntiWuensche = len(eigeneVortraege)
+  for eigenerVortrag, antiWunsch, hoereVortraege in zip(eigeneVortraege, antiWuensche, zuteilungsliste):
     kursEigenerVortrag = eigenerVortrag[0]
     zeitEigenerVortrag = eigenerVortrag[1]
     timetable[kurse.index(kursEigenerVortrag)][zeiten.index(zeitEigenerVortrag)] += str(indAtt) + 'V, '
     for kursZuhoerer, zeitZuhoerer in hoereVortraege:
       timetable[kurse.index(kursZuhoerer)][zeiten.index(zeitZuhoerer)] += str(indAtt) + ', '
+      if kursZuhoerer == antiWunsch:
+        anzahlRespektierterAntiWuensche -= 1
     indAtt += 1
   personenCounts = [ zeit.count(",") - 1 for kurs in timetable for zeit in kurs ]
-  return (personenCounts, timetable)
+  return (anzahlRespektierterAntiWuensche, personenCounts, timetable)
 
-def printTimetable(zeiten, kurse, (personenCounts, timetable)):
+def printTimetable(zeiten, kurse, (anzahlRespektierterAntiWuensche, personenCounts, timetable)):
   n = 0
   for kurs in timetable:
     print("Kurs {0}".format(kurse[n]))
@@ -74,25 +81,26 @@ def printTimetable(zeiten, kurse, (personenCounts, timetable)):
     print("")
     n += 1
 
+  print("Respektierte Antiwuensche: {0}".format(anzahlRespektierterAntiWuensche))
   print("Minimalzahl anwesender Personen in einem Slot: {0}".format(min(personenCounts)))
   print("Maximalzahl anwesender Personen in einem Slot: {0}".format(max(personenCounts)))
   print("Median      anwesender Personen in einem Slot: {0}".format(np.median(personenCounts)))
 
-def drawZuteilungen(kurse, zeiten, eigeneVortraege):
+def drawZuteilungen(kurse, zeiten, eigeneVortraege, antiWuensche):
   kurse = list(kurse)
   if eigeneVortraege:
     random.shuffle(kurse)
-    for ss in drawSlots([k for k in kurse if k != eigeneVortraege[0][0]], [z for z in zeiten if z != eigeneVortraege[0][1]]):
+    for ss in drawSlots([k for k in kurse if k != eigeneVortraege[0][0] and k != antiWuensche[0]], [z for z in zeiten if z != eigeneVortraege[0][1]]):
       random.shuffle(kurse)
-      for sss in drawZuteilungen(kurse, zeiten, eigeneVortraege[1:]):
+      for sss in drawZuteilungen(kurse, zeiten, eigeneVortraege[1:], antiWuensche[1:]):
 	yield [ss] + sss
   else:
     yield []
 # [ [(2,900),(3,1000)], [(2,800), (3,1000)], [...] ]
 
-def drawZuteilungenMitMinimalbedingung(kurse, zeiten, m, eigeneVortraege, breakAfter=None):
+def drawZuteilungenMitMinimalbedingung(kurse, zeiten, m, eigeneVortraege, antiWuensche, breakAfter=None):
   j = 0
-  for sss in drawZuteilungen(kurse, zeiten, eigeneVortraege):
+  for sss in drawZuteilungen(kurse, zeiten, eigeneVortraege, antiWuensche):
     if checkMinimalAttendance(kurse, zeiten, m, sss):
       yield sss
     j = j + 1
@@ -107,15 +115,15 @@ l = None
 
 # 500 zufaellige Starts versuchen
 for i in range(500):
-  for sss in drawZuteilungenMitMinimalbedingung(kurse, zeiten, 8, eigeneVortraege, 200):
-    (personenCounts, tt) = createTimetable(zeiten, kurse, eigeneVortraege, sss)
+  for sss in drawZuteilungenMitMinimalbedingung(kurse, zeiten, 8, eigeneVortraege, antiWuensche, 200):
+    (anzahlRespektierterAntiWuensche, personenCounts, tt) = createTimetable(zeiten, kurse, eigeneVortraege, antiWuensche, sss)
     # Wir bevorzugen solche Loesungen, bei denen ...
     # ... die Minimalzahl Personen in irgendeinem Slot moeglichst gross,
     # ... die Maximalzahl moeglichst klein und
     # ... der Median moeglichst gross
     # ist. Dann sind die Kinder naemlich gleichmaessiger verteilt.
-    if not l or min(l[0]) < min(personenCounts) or (min(l[0]) == min(personenCounts) and max(l[0]) > max(personenCounts)) or (min(l[0]) == min(personenCounts) and max(l[0]) == max(personenCounts) and np.median(l[0]) < np.median(personenCounts)):
-      l = (personenCounts, tt)
+    if not l or min(l[1]) < min(personenCounts) or (min(l[1]) == min(personenCounts) and max(l[1]) > max(personenCounts)) or (min(l[1]) == min(personenCounts) and max(l[1]) == max(personenCounts) and np.median(l[1]) < np.median(personenCounts)):
+      l = (anzahlRespektierterAntiWuensche, personenCounts, tt)
       printTimetable(zeiten, kurse, l)
 
 printTimetable(zeiten, kurse, l)
