@@ -52,6 +52,8 @@ for k, a in zip(kurse, anzahlen):
     eigeneVortraege += [(k, zeiten[-1])]
     antiWuensche    += [random.choice(moeglicheKurseZumBesuchen)]
 
+def str2(i): return "%02d" % i
+
 def createTimetable(zeiten, kurse, eigeneVortraege, antiWuensche, zuteilungsliste):
   numAtt = len(eigeneVortraege)
   timetable = [[' ' for z in zeiten] for k in kurse]
@@ -60,9 +62,9 @@ def createTimetable(zeiten, kurse, eigeneVortraege, antiWuensche, zuteilungslist
   for eigenerVortrag, antiWunsch, hoereVortraege in zip(eigeneVortraege, antiWuensche, zuteilungsliste):
     kursEigenerVortrag = eigenerVortrag[0]
     zeitEigenerVortrag = eigenerVortrag[1]
-    timetable[kurse.index(kursEigenerVortrag)][zeiten.index(zeitEigenerVortrag)] += str(indAtt) + 'V, '
+    timetable[kurse.index(kursEigenerVortrag)][zeiten.index(zeitEigenerVortrag)] += str2(indAtt) + 'V, '
     for kursZuhoerer, zeitZuhoerer in hoereVortraege:
-      timetable[kurse.index(kursZuhoerer)][zeiten.index(zeitZuhoerer)] += str(indAtt) + ', '
+      timetable[kurse.index(kursZuhoerer)][zeiten.index(zeitZuhoerer)] += str2(indAtt) + ',  '
       if kursZuhoerer == antiWunsch:
         anzahlRespektierterAntiWuensche -= 1
     indAtt += 1
