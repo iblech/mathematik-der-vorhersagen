@@ -68,7 +68,7 @@ def createTimetable(zeiten, kurse, eigeneVortraege, antiWuensche, zuteilungslist
       if kursZuhoerer == antiWunsch:
         anzahlRespektierterAntiWuensche -= 1
     indAtt += 1
-  personenCounts = [ zeit.count(",") - 1 for kurs in timetable for zeit in kurs ]
+  personenCounts = [ zeit.count(",") for kurs in timetable for zeit in kurs ]
   return (anzahlRespektierterAntiWuensche, personenCounts, timetable)
 
 def printTimetable(zeiten, kurse, (anzahlRespektierterAntiWuensche, personenCounts, timetable)):
