@@ -1,3 +1,4 @@
+import numpy as np
 import random
 
 # (kursnummer, zeitnummer)
@@ -58,9 +59,10 @@ def createTimetable(zeiten, kurse, eigeneVortraege, zuteilungsliste):
     for kursZuhoerer, zeitZuhoerer in hoereVortraege:
       timetable[kurse.index(kursZuhoerer)][zeiten.index(zeitZuhoerer)] += str(indAtt) + ', '
     indAtt += 1
-  return timetable
+  personenCounts = [ zeit.count(",") - 1 for kurs in timetable for zeit in kurs ]
+  return (personenCounts, timetable)
 
-def printTimetable(zeiten, kurse, timetable):
+def printTimetable(zeiten, kurse, (personenCounts, timetable)):
   n = 0
   for kurs in timetable:
     print("Kurs {0}".format(kurse[n]))
@@ -69,8 +71,12 @@ def printTimetable(zeiten, kurse, timetable):
     for zeit in kurs:
       print(str(zeiten[m]) + "\t" + zeit)
       m += 1
+    print("")
     n += 1
-      
+
+  print("Minimalzahl anwesender Personen in einem Slot: {0}".format(min(personenCounts)))
+  print("Maximalzahl anwesender Personen in einem Slot: {0}".format(max(personenCounts)))
+  print("Median      anwesender Personen in einem Slot: {0}".format(np.median(personenCounts)))
 
 #eigeneVortraege = [(k,z) for k in kurse for z in zeiten]
 #eigeneVortraege = eigeneVortraege * 3 # + [(1, 800) , (2, 800), (3, 800), (1, 1000), (4,1200), (5, 1100), (6, 1200), (4, 1100), (5, 1000), (6,800)]
@@ -94,18 +100,32 @@ def drawZuteilungen(kurse, zeiten, eigeneVortraege):
     yield []
 # [ [(2,900),(3,1000)], [(2,800), (3,1000)], [...] ]
 
-def drawZuteilungenMitMinimalbedingung(kurse, zeiten, m, eigeneVortraege):
+def drawZuteilungenMitMinimalbedingung(kurse, zeiten, m, eigeneVortraege, breakAfter=None):
+  j = 0
   for sss in drawZuteilungen(kurse, zeiten, eigeneVortraege):
     if checkMinimalAttendance(kurse, zeiten, m, sss):
       yield sss
+    j = j + 1
+    if breakAfter and j == breakAfter:
+      break
 
 def dump(xs):
   for x in xs:
     print(x)
 
-l = (drawZuteilungenMitMinimalbedingung(kurse, zeiten, 1, eigeneVortraege))
-#dump(drawSlots__([800,900,1000,1200], [1,2,3,4,5]))
+l = None
 
-firstex = l.next()
-tt = createTimetable(zeiten, kurse, eigeneVortraege, firstex)
-printTimetable(zeiten, kurse, tt)
+# 100 zufaellige Starts versuchen
+for i in range(50000):
+  for sss in drawZuteilungenMitMinimalbedingung(kurse, zeiten, 8, eigeneVortraege, 200):
+    (personenCounts, tt) = createTimetable(zeiten, kurse, eigeneVortraege, sss)
+    # Wir bevorzugen solche Loesungen, bei denen ...
+    # ... die Minimalzahl Personen in irgendeinem Slot moeglichst gross,
+    # ... die Maximalzahl moeglichst klein und
+    # ... der Median moeglichst gross
+    # ist. Dann sind die Kinder naemlich gleichmaessiger verteilt.
+    if not l or min(l[0]) < min(personenCounts) or (min(l[0]) == min(personenCounts) and max(l[0]) > max(personenCounts)) or (min(l[0]) == min(personenCounts) and max(l[0]) == max(personenCounts) and np.median(l[0]) < np.median(personenCounts)):
+      l = (personenCounts, tt)
+      printTimetable(zeiten, kurse, l)
+
+printTimetable(zeiten, kurse, l)
