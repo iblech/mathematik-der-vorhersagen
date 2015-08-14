@@ -6,9 +6,8 @@
 # zufällige neue Sätze zu generieren.
 #
 # Das Programm startet man so: python bot.py 6
-# Dabei muss man sich in dem Verzeichnis befinden, indem auch die Datei
-# corpus.txt liegt. Die Datei corpus.txt enthält man, indem man corpus.zip
-# entpackt.
+# Dazu muss vorher noch das ZIP-Archiv corpus.zip entpackt werden (in dasselbe
+# Verzeichnis, in dem auch dieses Programm liegt).
 #
 # Das Argument 6 gibt an, wie viele aufeinanderfolgende Wörter jeweils zu einem
 # Zustand zusammengefasst werden sollen. Je höher diese Zahl ist, desto eher
@@ -20,8 +19,12 @@
 from __future__ import division
 import numpy as np
 import random
+import os
 import sys
 import cPickle as pickle
+
+# In das Verzeichnis wechseln, in dem sich dieses Programm befindet.
+os.chdir(sys.path[0])
 
 DELIM = "#"
 
