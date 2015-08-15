@@ -91,8 +91,8 @@ MarI/O - Machine Learning for Video Games
   * Convolutional Neural Networks
 * Visualisierung von neuronalen Netzen und "Träume" von neuronalen Netzen
   http://googleresearch.blogspot.de/2015/06/inceptionism-going-deeper-into-neural.html
-  http://www.matthewzeiler.com/pubs/arxive2013/eccv2014.pdf (Zeiler/Fergus:
-  Visualizing and Understanding Convolutional Networks)
+  http://www.matthewzeiler.com/pubs/arxive2013/eccv2014.pdf (Zeiler/Fergus: Visualizing and Understanding Convolutional Networks)
+  https://www.youtube.com/watch?v=oyxSerkkP4o (Deep Dreaming Fear & Loathing in Las Vegas)
 
 * Nachmittag???
 
@@ -130,7 +130,7 @@ MarI/O - Machine Learning for Video Games
   Das Integral über a von f_2(t; a) x'(t) ist Null, die Normalisierung bleibt
   also erhalten.
 
-* Brainstorm für "Mathe am Mittag" an Tag 0:
+* Brainstorm für "Mathe am Mittag" am Tag 0:
 
   Im Kurs:
   * Collatz-Vermutung
