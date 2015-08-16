@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import matplotlib.pylab as pyl
 import mnist_loader
 import cPickle as pickle
+import random
 
 # In das Verzeichnis wechseln, in dem sich dieses Programm befindet.
 os.chdir(sys.path[0])
@@ -48,34 +49,37 @@ plt.show()
 
 print("Versuche, in net.p ein neuronales Netz zu laden...")
 V,W,b,c = pickle.load(open("net.p", "rb"))
-print("Erfolg!")
+print("Erfolg! Berechne Erkennungsrate...")
 
 print("Erkennungsrate: %d/%d" % (evaluate(V,W,b,c,testData), len(testData)))
 
 correctResults = []
 wrongResults   = []
+random.shuffle(testData)
 for x, actualDigit in testData:
     detectedDigit = np.argmax(feedforward(V,W,b,c, x)[-1])
     if detectedDigit == actualDigit:
         correctResults.append((x,actualDigit,detectedDigit))
     else:
         wrongResults  .append((x,actualDigit,detectedDigit))
+    if len(correctResults) >= 16 and len(wrongResults) >= 16:
+        break
 
 a = plt.figure(1)
-a.suptitle("Neun richtig erkannte Ziffern", fontsize=14)
-for k in range(9):
+a.suptitle("Einige richtig erkannte Ziffern", fontsize=14)
+for k in range(16):
     x, actualDigit, detectedDigit = correctResults[k]
-    ax = plt.subplot(3, 3, k+1)
+    ax = plt.subplot(4, 4, k+1)
     plt.imshow(x.reshape(28,28), cmap = pyl.cm.gray)
     ax.xaxis.set_visible(False)
     ax.yaxis.set_visible(False)
     ax.set_title("Ist %d, erkannt als %d" % (actualDigit, detectedDigit))
 
 a = plt.figure(2)
-a.suptitle("Neun falsch erkannte Ziffern", fontsize=14)
-for k in range(9):
+a.suptitle("Einige falsch erkannte Ziffern", fontsize=14)
+for k in range(16):
     x, actualDigit, detectedDigit = wrongResults[k]
-    ax = plt.subplot(3, 3, k+1)
+    ax = plt.subplot(4, 4, k+1)
     plt.imshow(x.reshape(28,28), cmap = pyl.cm.gray)
     ax.xaxis.set_visible(False)
     ax.yaxis.set_visible(False)
