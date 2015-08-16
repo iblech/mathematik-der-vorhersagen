@@ -55,7 +55,7 @@ arb xs  = do
     op      <- [Sum, Diff, Prod, Quot]
     return $ op left right
 
--- Gegebene eine Liste, berechnet alle Möglichkeiten, diese Liste in zwei
+-- Gegeben eine Liste, berechnet alle Möglichkeiten, diese Liste in zwei
 -- Teile zu zerlegen: einen vorderen und einen hinteren.
 groups :: [a] -> [([a],[a])]
 groups []     = [([],[])]
