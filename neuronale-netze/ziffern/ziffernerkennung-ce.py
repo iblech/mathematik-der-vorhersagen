@@ -82,7 +82,7 @@ batchSize = 10
 eta       = 0.5
 
 # Zufällige Initialisierung von Gewichten und Biases.
-V = np.random.normal(0, 1, (numHidden,numInput))
+V = np.random.normal(0, 1, (numHidden,numInput))  / np.sqrt(numInput)
 W = np.random.normal(0, 1, (numOutput,numHidden)) / np.sqrt(numHidden)
 b = np.random.normal(0, 1, (numHidden,1))
 c = np.random.normal(0, 1, (numOutput,1))
