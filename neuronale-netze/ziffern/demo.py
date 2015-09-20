@@ -13,6 +13,11 @@
 import os
 import sys
 import numpy as np
+import matplotlib
+if sys.platform == "darwin":
+    matplotlib.use('TkAgg')
+    # Workaround um einen Bug.
+    # Siehe https://github.com/mwaskom/seaborn/issues/231, danke an Robin!
 import matplotlib.pyplot as plt
 import cPickle as pickle
 import scipy.ndimage
@@ -42,6 +47,7 @@ image = np.zeros((28,28))
 fig = plt.figure()
 ax  = fig.add_subplot(111)
 im  = ax.imshow(image, vmin=0, vmax=1)
+plt.draw()
 
 # Gegeben zwei Punkte old und new, gibt insgesamt 100 Punkte auf der
 # Verbindungsstrecke von old nach new zurück. Wird verwendet, weil die Maus
