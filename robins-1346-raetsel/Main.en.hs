@@ -26,7 +26,7 @@ eval (Prod a b) = eval a * eval b
 eval (Quot a b) = eval a / eval b
 
 main :: IO ()
-main = mapM_ print $ filter ((== 17) . eval) $ concatMap arb $ permutations [6,6,4,2]
+main = mapM_ print $ filter ((== 17) . eval) $ concatMap arb $ permutations [6,6,5,2]
 
 -- Given a list `xs`, `arb xs` is the list of those syntax trees which
 -- have the elements of `xs` at their leaves (in the same order as in `xs`).
