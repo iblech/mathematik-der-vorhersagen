@@ -9,7 +9,8 @@
 \graphicspath{{images/}}
 
 \title{\large Wie vollbringen künstliche Intelligenzen das Kunststück des Lernens?}
-\author[Ingo Blechschmidt]{\textcolor{white}{Ingo Blechschmidt \\ mit Dank an XXX}}
+\author[Ingo Blechschmidt]{\textcolor{white}{Ingo Blechschmidt \\ \small mit Dank an
+Tim Baumann und Philipp Wacker}}
 \date[2017-04-22]{\vspace*{-5em}\ \\\textcolor{white}{\scriptsize Institut für Mathematik \\ Universität Augsburg \\ 22. April 2017 \\}}
 
 %\usetheme{Warsaw}
@@ -121,7 +122,7 @@
 % Für die Supervergrößerung: resources/neural-enhance.gif
 
 
-\section[Funktionsweise]{Funktionsweise künstlicher neuronaler Netzwerke}
+\section[Wie?]{Funktionsweise künstlicher neuronaler Netzwerke}
 
 {\usebackgroundtemplate{\includegraphics[height=\paperheight]{neuron-art}}
 \begin{frame}
@@ -141,6 +142,16 @@
     \item Fehlerminimierung mittels Gradientenabstieg
   \end{enumerate}
 \end{frame}}
+
+
+\begin{frame}{Der MNIST-Datensatz}
+  \centering
+  \includegraphics[width=0.7\textwidth]{mnist-ziffern}
+  \bigskip
+
+  70\,000 Bilder mit je $28 \times 28$ Pixeln
+  \par
+\end{frame}
 
 
 \subsection{Netzaufbau}
@@ -186,7 +197,7 @@
         \foreach \dest in {2}
           \path (I-\source) edge (H-1-\dest);
     }
-    \only<4>{
+    \only<4->{
       \path (I-1) -- (H-1-2) node[midway] {3};
       \path (I-2) -- (H-1-2) node[midway] {4};
       \path (I-3) -- (H-1-2) node[midway] {1};
@@ -214,12 +225,72 @@
     \node[annot,right of=hl2] {Ausgabe\-schicht};
 
     \only<5->{
-      \node[below of=O-2] (y) {\scriptsize $y = \sigma(0{,}1\cdot3 + 0{,}7\cdot4 + 0{,}2\cdot1 + 0{,}4\cdot5)$};
+      \node[below of=O-2] (y) {\scriptsize $y = \sigma(0{,}1\cdot3 + 0{,}7\cdot4 + 0{,}2\cdot1 + 0{,}4\cdot5 + b)$};
       \draw[<-, in=120] (H-1-2.east)++(-0.1cm,0cm) to (y.west);
+    }
+
+    \only<5->{
+      \node at (7.5,-1.2*4.5) {\includegraphics[scale=0.4]{sigmoid}};
     }
   \end{tikzpicture}
 \end{frame}
 
+
+\subsection{Lernen durch Gradientenabstieg}
+
+\begin{frame}{Das Kunststück des Lernens}
+  \centering
+  \only<1>{\includegraphics[width=0.8\textwidth]{cubic-polynomial} \par eine Unbekannte: $x$}
+  \only<2>{\includegraphics[width=1.0\textwidth]{3d-plot} \par zwei Unbekannte: $x$, $y$}
+  \only<3>{
+    \begin{columns}
+      \portrait{leibniz}{\href{https://de.wikipedia.org/wiki/Gottfried_Wilhelm_Leibniz}{Leibniz (* 1646, † 1716)}}{0.3}{0.5}
+      \portrait{newton}{\href{https://de.wikipedia.org/wiki/Isaac_Newton}{Newton (* 1643, † 1727)}}{0.3}{0.5}
+    \end{columns}
+    \bigskip
+
+    beliebig viele Unbekannte
+  }
+  \par
+\end{frame}
+
+
+\subsection[Verborgene Schicht]{Blick in die verborgene Schicht}
+
+\begin{frame}{Blick in die verborgene Schicht}
+  \centering
+  \includegraphics[width=0.8\textwidth]{blick-in-die-zwischenschicht}
+  \par
+\end{frame}
+
+
+\section[Wieso nicht früher?]{Wieso nicht schon früher?}
+
+{\usebackgroundtemplate{\includegraphics[height=\paperheight]{zeit}}
+\begin{frame}
+  \centering
+  \bigskip\bigskip
+
+  \Huge \hil{Teil III}
+
+  \bigskip
+  \Large\textbf{Wieso nicht schon früher?}
+  \par
+
+  \vfill\small
+  \begin{enumerate}
+    \item Größere Rechenleistung
+    \pause
+    \item Verfügbarkeit großer Datensätze zum Training
+    \pause
+    \item Mathematischer Durchbruch: Convolutional Neural Networks
+  \end{enumerate}
+\end{frame}}
+
+% XXX: Bild von CNN einfügen
+
+
+\section[Weiter?]{Herausforderungen für die Zukunft}
 
 % http://www.bundesheer.at/archiv/a2005/edelweiss_raid/galerie/vollbild/weitergehts2.jpg
 {\usebackgroundtemplate{\includegraphics[height=\paperheight]{herausforderung}}
@@ -243,4 +314,29 @@
   \end{itemize}
 \end{frame}}
 
+% XXX: Deep Dreams
+% XXX: Bild von Adversarial Examples einfügen
+
+
+\section{Empfehlungen}
+
+{\usebackgroundtemplate{\includegraphics[height=\paperheight]{westworld}}
+\begin{frame}
+  \centering
+  \bigskip\bigskip
+
+  \Huge \hil{Teil V}
+
+  \bigskip
+  \Large\textbf{Empfehlungen}
+  \par
+
+  \vfill\small
+  \begin{itemize}
+    \item HBO-Serie Westworld
+    \item Vorträge von Joscha Bach auf dem Chaos Communication Congress
+    \item Bibliotheken wie TensorFlow
+    \item \href{http://neuralnetworksanddeeplearning.com/}{Neural Networks and Deep Learning} von Michael Nielsen
+  \end{itemize}
+\end{frame}}
 \end{document}
