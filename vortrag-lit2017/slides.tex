@@ -11,9 +11,9 @@
 \title{\large Wie vollbringen künstliche Intelligenzen das Kunststück des Lernens?}
 \author[Ingo Blechschmidt]{\textcolor{white}{Ingo Blechschmidt \\ \small mit Dank an
 Tim Baumann und Philipp Wacker}}
-\date[2017-04-22]{\vspace*{-5em}\ \\\textcolor{white}{\scriptsize Institut für Mathematik \\ Universität Augsburg \\ 22. April 2017 \\}}
+\date[2017-04-22]{\vspace*{-5em}\ \\\textcolor{white}{\scriptsize Institut für
+Mathematik der Universität Augsburg \\ 16. Augsburger Linux-Infotag am 22. April 2017 \\}}
 
-%\usetheme{Warsaw}
 \useinnertheme[shadow=true]{rounded}
 \useoutertheme{split}
 \usecolortheme{orchid}
@@ -250,9 +250,44 @@ Tim Baumann und Philipp Wacker}}
     \bigskip
 
     beliebig viele Unbekannte
+    \bigskip
   }
   \par
 \end{frame}
+
+\note{\justifying\scriptsize
+  Im MNIST-Beispiel legen wir von den 70\,000 Einträgen 10\,000
+  beiseite; diese verwenden wir später zur Validierung. Den Lernvorgang
+  beginnen wir mit einer rein zufälligen Wahl von Gewichten und Biases.
+  \begin{enumerate}\justifying
+    \item Wir berechnen für jede der 60\,000 Trainingsfälle die
+    Aktivierungen der zehn Ausgabeneuronen. So erhalten wir insgesamt 600\,000
+    Zahlen zwischen~$0$ und~$1$. Für jedes dieser Ergebnisse wissen wir, welchen
+    Wert wir uns eigentlich wünschen (jeweils~$0$ oder~$1$ -- etwa soll
+    Ausgabeneuron Nr.~5 bei Eingabe einer handschriftlichen Sieben idealerweise
+    überhaupt nicht feuern).
+    \item Für jede dieser 600\,000 Ergebnisse berechnen
+    wir den \emph{quadratischen Fehler} \[ (\text{tatsächliches Ergebnis} -
+    \text{Wunschergebnis})^2 \] und summieren all diese Quadrate auf.
+    (Interessiert dich, wieso man hier quadriert? Schreibe eine Mail an
+    \href{mailto:iblech@speicherleck.de}{iblech@speicherleck.de}.)
+    \item Je größer diese Summe ist, desto schlechter funktioniert das Netzwerk
+    auf den Trainingsdaten. Wir möchten daher die Summe \emph{minimieren}. Die
+    Summe hängt von den Gewichten der künstlichen Synapsen und den Biases der
+    Neuronen ab; diese Abhängigkeit heißt auch \emph{Kostenfunktion}.
+    \item Durch Bestimmung des \emph{Gradienten} wissen wir, wie wir die
+    Gewichte und Biases ändern müssen, um
+    eine kleine Reduktion der Kostenfunktion zu erreichen. So erhalten wir neue
+    Gewichte und Biases. Anschließend beginnen wir wieder bei Schritt~1. Auf
+    diese Weise folgen wir zu jedem Zeitpunkt der Richtung des steilsten
+    Abstiegs im hochdimensionalen Kostengebirge.
+  \end{enumerate}
+  Sobald wir mit der Leistung des Netzes auf den
+  Validierungsdatensätzen zufrieden sind, beenden wir das Training.  Das
+  \emph{Wunder der Generalisierung} setzt ein: Das Netz klassifiziert auch
+  neu geschriebene Ziffern, die nicht Teil des Trainingdatensatzes waren, sehr
+  häufig richtig.\par\bigskip
+}
 
 
 \subsection[Verborgene Schicht]{Blick in die verborgene Schicht}
@@ -262,6 +297,28 @@ Tim Baumann und Philipp Wacker}}
   \includegraphics[width=0.8\textwidth]{blick-in-die-zwischenschicht}
   \par
 \end{frame}
+
+\note{\justifying
+  Hier wurde ein einfaches Netz zur Ziffernerkennung bestehend aus nur einer
+  einzigen verborgenen Schicht mit~30 Neuronen trainiert. Die Grafik zeigt die
+  Gewichte der Synapsen zwischen den $28 \times 28$ Eingabeneuronen und diesen
+  30~Neuronen. Das Netz hat eine Erkennungsrate von~95\,\%.
+  \bigskip
+
+  Verwendet man~100 Neuronen, so erreicht man~97\,\%; das ist fast eine
+  Halbierung der Fehlerrate.
+  \bigskip
+
+  Demo zum Selbstprobieren:
+  \begin{itemize}
+    \item
+    \href{https://github.com/iblech/mathematik-der-vorhersagen/blob/master/neuronale-netze/ziffern/demo.py}{Python-Code
+    zur Erkennung}
+    \item
+    \href{https://github.com/iblech/mathematik-der-vorhersagen/blob/master/neuronale-netze/ziffern/ziffernerkennung-basic.py}{Python-Code
+    zum Training}
+  \end{itemize}
+}
 
 
 \section[Wieso nicht früher?]{Wieso nicht schon früher?}
@@ -308,14 +365,26 @@ Tim Baumann und Philipp Wacker}}
   \begin{itemize}
     \item Neuronale Netze auf weitere Problemklassen ausdehnen
     \item Innere Funktionsweise von Netzen verstehen
-    \item Resistenz gegen Adversarial Examples entwickeln
-    \item Ethische Fragen bei selbstfragenden Autos diskutieren
+    \item Resistenz gegen \href{https://blog.openai.com/adversarial-example-research/}{Adversarial Examples} entwickeln
+    \item Ethische Fragen bei selbstfahrenden Autos diskutieren
     \item Existenzielle Fragen bei starker KI untersuchen
   \end{itemize}
 \end{frame}}
 
-% XXX: Deep Dreams
-% XXX: Bild von Adversarial Examples einfügen
+\note{\justifying
+  \emph{Wie} ein künstliches neuronales Netzwerk funktioniert, ist -- anders
+  als bei herkömmlichem Programmcode -- nicht klar.
+  (Wie beim Menschen auch.) Dazu wird momentan aktiv geforscht. Zwei
+  Einstiegspunkte zu solchen Untersuchungen sind:
+
+  \begin{itemize}
+    \item \href{https://research.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html}{Inceptionism:
+    Going Deeper into Neural Networks} von Alexander Mordvintsev, Christopher
+    Olah und Mike Tyka
+    \item \href{http://www.matthewzeiler.com/pubs/arxive2013/eccv2014.pdf}{Visualizing
+    and Understanding Convolutional Networks} von Matthew Zeiler und Rob Fergus
+  \end{itemize}
+}
 
 
 \section{Empfehlungen}
@@ -333,9 +402,15 @@ Tim Baumann und Philipp Wacker}}
 
   \vfill\small
   \begin{itemize}
-    \item HBO-Serie Westworld
-    \item Vorträge von Joscha Bach auf dem Chaos Communication Congress
-    \item Bibliotheken wie TensorFlow
+    \item HBO-Serie Westworld über Androiden, die schon lange den Turingtest
+    bestehen und nun ein Bewusstsein entwickeln
+    \item \href{https://www.youtube.com/watch?v=lKQ0yaEJjok}{Vorträge von
+    Joscha Bach auf dem Kongress}
+    \item \href{https://karpathy.github.io/2015/05/21/rnn-effectiveness/}{The
+    Unreasonable Effectiveness of Recurrent Neural Networks} von Andrej
+    Karpathy
+    \item TensorFlow -- mische auch ohne viel Programmiererfahrung bei der
+    KI-Entwicklung mit!
     \item \href{http://neuralnetworksanddeeplearning.com/}{Neural Networks and Deep Learning} von Michael Nielsen
   \end{itemize}
 \end{frame}}
