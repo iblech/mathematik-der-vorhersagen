@@ -255,6 +255,58 @@ Mathematik der Universität Augsburg \\ 16. Augsburger Linux-Infotag am 22. Apri
   \par
 \end{frame}
 
+\begin{frame}{Das Kunststück des Lernens}
+  \scriptsize
+  \begin{enumerate}\justifying
+    \item Bestimme für jeden der~60\,000 Trainingsfälle die Aktivierungen der
+    zehn Ausgabeneuronen.
+    \item Summiere für jede der resultierenden~600\,000 Aktivierungen die
+    einzelnen \hil{quadratischen Fehler} auf, um die \hil{Gesamtkosten} zu
+    bestimmen:
+    \begin{align*}
+      &\mathop{\phantom{+}} \underbrace{(0.1 - 0)^2 + (0.7 - \hil{1})^2 + (0.1 - 0)^2 + \cdots + (0.2 - 0)^2}_{\text{erster Trainingsfall (sollte als 1 erkannt werden)}} \\[0.3em]
+      &+ \underbrace{(0.3 - \hil{1})^2 + (0.2 - 0)^2 + (0.2 - 0)^2 + \cdots + (0.1 - 0)^2}_{\text{zweiter Trainingsfall (sollte als 0 erkannt werden)}} \\[0.3em]
+      &+ \cdots
+    \end{align*}
+    \item Ändere die Gewichte und Verschiebungen ein kleines bisschen in Richtung des \hil{steilsten Abstiegs}, um die Gesamtkosten ein kleines bisschen zu reduzieren, das Netzwerk also ein kleines bisschen zu verbessern.
+    \item Gehe zu Schritt{\setcounter{enumi}{1}\usebeamercolor[fg]{enumerate item}\usebeamertemplate{enumerate item}}.
+  \end{enumerate}
+\end{frame}
+
+\note{\justifying\scriptsize
+  Im MNIST-Beispiel legen wir von den 70\,000 Einträgen 10\,000
+  beiseite; diese verwenden wir später zur Validierung. Den Lernvorgang
+  beginnen wir mit einer rein zufälligen Wahl von Gewichten und Biases.
+  \begin{enumerate}\justifying
+    \item Wir berechnen für jede der 60\,000 Trainingsfälle die
+    Aktivierungen der zehn Ausgabeneuronen. So erhalten wir insgesamt 600\,000
+    Zahlen zwischen~$0$ und~$1$. Für jedes dieser Ergebnisse wissen wir, welchen
+    Wert wir uns eigentlich wünschen (jeweils~$0$ oder~$1$ -- etwa soll
+    Ausgabeneuron Nr.~5 bei Eingabe einer handschriftlichen Sieben idealerweise
+    überhaupt nicht feuern).
+    \item Für jede dieser 600\,000 Ergebnisse berechnen
+    wir den \emph{quadratischen Fehler} \[ (\text{tatsächliches Ergebnis} -
+    \text{Wunschergebnis})^2 \] und summieren all diese Quadrate auf.
+    (Interessiert dich, wieso man hier quadriert? Schreibe eine Mail an
+    \href{mailto:iblech@speicherleck.de}{iblech@speicherleck.de}.)
+    \item Je größer diese Summe ist, desto schlechter funktioniert das Netzwerk
+    auf den Trainingsdaten. Wir möchten daher die Summe \emph{minimieren}. Die
+    Summe hängt von den Gewichten der künstlichen Synapsen und den Biases der
+    Neuronen ab; diese Abhängigkeit heißt auch \emph{Kostenfunktion}.
+    \item Durch Bestimmung des \emph{Gradienten} wissen wir, wie wir die
+    Gewichte und Biases ändern müssen, um
+    eine kleine Reduktion der Kostenfunktion zu erreichen. So erhalten wir neue
+    Gewichte und Biases. Anschließend beginnen wir wieder bei Schritt~1. Auf
+    diese Weise folgen wir zu jedem Zeitpunkt der Richtung des steilsten
+    Abstiegs im hochdimensionalen Kostengebirge.
+  \end{enumerate}
+  Sobald wir mit der Leistung des Netzes auf den
+  Validierungsdatensätzen zufrieden sind, beenden wir das Training.  Das
+  \emph{Wunder der Generalisierung} setzt ein: Das Netz klassifiziert auch
+  neu geschriebene Ziffern, die nicht Teil des Trainingdatensatzes waren, sehr
+  häufig richtig.\par\bigskip
+}
+
 \note{\justifying\scriptsize
   Im MNIST-Beispiel legen wir von den 70\,000 Einträgen 10\,000
   beiseite; diese verwenden wir später zur Validierung. Den Lernvorgang
@@ -366,7 +418,7 @@ Mathematik der Universität Augsburg \\ 16. Augsburger Linux-Infotag am 22. Apri
     \item Neuronale Netze auf weitere Problemklassen ausdehnen
     \item Innere Funktionsweise von Netzen verstehen
     \item Resistenz gegen \href{https://blog.openai.com/adversarial-example-research/}{Adversarial Examples} entwickeln
-    \item Ethische Fragen bei selbstfahrenden Autos diskutieren
+    \item Ethische Fragen diskutieren
     \item Existenzielle Fragen bei starker KI untersuchen
   \end{itemize}
 \end{frame}}
