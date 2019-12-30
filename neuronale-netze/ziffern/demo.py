@@ -53,7 +53,7 @@ plt.draw()
 # Verbindungsstrecke von old nach new zurück. Wird verwendet, weil die Maus
 # bei schnellen Bewegungen oft einzelne Pixel auslässt.
 def lininp(old, new):
-    if old == None:
+    if old is None:
         yield new
         return
 
