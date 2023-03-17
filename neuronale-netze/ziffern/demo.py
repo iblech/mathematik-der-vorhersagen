@@ -19,7 +19,7 @@ if sys.platform == "darwin":
     # Workaround um einen Bug.
     # Siehe https://github.com/mwaskom/seaborn/issues/231, danke an Robin!
 import matplotlib.pyplot as plt
-import cPickle as pickle
+import pickle
 import scipy.ndimage
 
 # In das Verzeichnis wechseln, in dem sich dieses Programm befindet.
@@ -39,7 +39,7 @@ def feedforward(x):
 
 # Versuch, das gespeicherte Netz zu laden.
 with open("net.p", "rb") as f:
-    V,W,b,c = pickle.load(f)
+    V,W,b,c = pickle.load(f, encoding="latin1")
 
 # (28x28)-Array, das die Bilddaten enthält.
 image = np.zeros((28,28))
