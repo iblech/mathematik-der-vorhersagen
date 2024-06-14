@@ -13,7 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.pylab as pyl
 import mnist_loader
-import cPickle as pickle
+import pickle
 import random
 
 # In das Verzeichnis wechseln, in dem sich dieses Programm befindet.
@@ -48,7 +48,7 @@ for k in range(9):
 plt.show()
 
 print("Versuche, in net.p ein neuronales Netz zu laden...")
-V,W,b,c = pickle.load(open("net.p", "rb"))
+V,W,b,c = pickle.load(open("net.p", "rb"), encoding="latin1")
 print("Erfolg! Berechne Erkennungsrate...")
 
 print("Erkennungsrate: %d/%d" % (evaluate(V,W,b,c,testData), len(testData)))
