@@ -15,7 +15,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 import mnist_loader
-import cPickle as pickle
+import pickle
 
 # In das Verzeichnis wechseln, in dem sich dieses Programm befindet.
 os.chdir(sys.path[0])

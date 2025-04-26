@@ -19,7 +19,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 import mnist_loader
-import cPickle as pickle
+import pickle
 
 # In das Verzeichnis wechseln, in dem sich dieses Programm befindet.
 os.chdir(sys.path[0])
@@ -97,7 +97,7 @@ trainingData, validationData, testData = mnist_loader.load_data_wrapper()
 
 for i in range(numEpochs):
     # Aktuellen Stand ausgeben.
-    print("Epoch %02d: %d von %d Ziffern richtig erkannt." % (i, evaluate(V,W,b,c, testData), len(testData)))
+    print("Epoch %02d: %d von %d Ziffern richtig erkannt." % (i, evaluate(V,W,b,c, testData), len(testData)), file=sys.stderr)
     # Netzwerk speichern.
     with open("net.p", "wb") as f:
         pickle.dump((V,W,b,c), f)
@@ -116,6 +116,8 @@ for i in range(numEpochs):
         W = W - eta * nabla_W / batchSize
         b = b - eta * nabla_b / batchSize
         c = c - eta * nabla_c / batchSize
+
+        print(*[a[0] for a in feedforward(V,W,b,c, validationData[0][0])[-1]])
 
 # Mit den Hyper-Parametern
 #

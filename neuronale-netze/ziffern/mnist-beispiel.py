@@ -38,10 +38,20 @@ def evaluate(V,W,b,c, testData):
 trainingData, validationData, testData = mnist_loader.load_data_wrapper()
 
 a = plt.figure(1)
-a.suptitle("Die ersten neun Ziffern des MNIST-Datensatzes", fontsize=14)
+a.suptitle("Die ersten neun Ziffern des MNIST-Trainingdatensatzes", fontsize=14)
 for k in range(9):
     ax = plt.subplot(3, 3, k+1)
     plt.imshow(trainingData[k][0].reshape(28,28), cmap = pyl.cm.gray)
+    ax.xaxis.set_visible(False)
+    ax.yaxis.set_visible(False)
+    ax.set_title("Ziffer Nr. %d" % k)
+plt.show()
+
+a = plt.figure(1)
+a.suptitle("Die ersten neun Ziffern des MNIST-Validierungsdatensatzes", fontsize=14)
+for k in range(9):
+    ax = plt.subplot(3, 3, k+1)
+    plt.imshow(validationData[k][0].reshape(28,28), cmap = pyl.cm.gray)
     ax.xaxis.set_visible(False)
     ax.yaxis.set_visible(False)
     ax.set_title("Ziffer Nr. %d" % k)
