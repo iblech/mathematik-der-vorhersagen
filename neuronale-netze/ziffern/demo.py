@@ -47,8 +47,9 @@ image = np.zeros((28,28))
 fig = plt.figure()
 ax  = fig.add_subplot(121)
 ax2 = fig.add_subplot(122)
-im  = ax.imshow(image, vmin=0, vmax=1)
+ax3 = fig.add_subplot(133)
 
+im  = ax.imshow(image, vmin=0, vmax=1)
 ax.set_title("Draw a digit")
 ax.axis("off")
 
@@ -58,6 +59,10 @@ ax2.set_title("Output neuron activations")
 ax2.set_xlabel("Digit")
 ax2.set_ylabel("Activation")
 ax2.set_xticks(range(10))
+
+ax3.axis("off")
+predicted_text = ax3.text(0.5, 0.5, "", fontsize=80, ha="center", va="center", color="red")
+ax3.set_title("")
 
 plt.tight_layout()
 plt.draw()
@@ -110,6 +115,10 @@ def onmouse(event):
         for bar in bars:
             ax2.draw_artist(bar)
 
+        predicted_digit = np.argmax(act)
+        predicted_text.set_text(str(predicted_digit))
+        ax3.draw_artist(predicted_text)
+
         im.figure.canvas.blit(im.figure.bbox)
     else:
         oldpos = None
@@ -119,6 +128,14 @@ def onmouse(event):
             image = np.zeros((28,28))
             im.set_data(image)
             ax.draw_artist(im)
+
+            for rect in bars:
+                rect.set_height(0)
+            ax2.draw_artist(ax2.patch)
+
+            predicted_text.set_text('')
+            ax3.draw_artist(predicted_text)
+
             im.figure.canvas.blit(im.figure.bbox)
 
 fig.canvas.mpl_connect('button_press_event',  onmouse)
