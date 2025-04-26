@@ -45,8 +45,21 @@ with open("net.p", "rb") as f:
 image = np.zeros((28,28))
 
 fig = plt.figure()
-ax  = fig.add_subplot(111)
+ax  = fig.add_subplot(121)
+ax2 = fig.add_subplot(122)
 im  = ax.imshow(image, vmin=0, vmax=1)
+
+ax.set_title("Draw a digit")
+ax.axis("off")
+
+bars = ax2.bar(range(10), np.zeros(10))
+ax2.set_ylim(0, 1)
+ax2.set_title("Output neuron activations")
+ax2.set_xlabel("Digit")
+ax2.set_ylabel("Activation")
+ax2.set_xticks(range(10))
+
+plt.tight_layout()
 plt.draw()
 
 # Gegeben zwei Punkte old und new, gibt insgesamt 100 Punkte auf der
@@ -87,11 +100,17 @@ def onmouse(event):
         # Grafische Darstellung aktualisieren.
         im.set_data(image)
         ax.draw_artist(im)
-        im.figure.canvas.blit(im.figure.bbox)
 
         # Bild durchs neuronale Netz schicken.
-        act = feedforward(image.reshape(784,1))[-1]
+        act = feedforward(image.reshape(784,1))[-1].flatten()
         print("%d" % np.argmax(act) + ": " + ", ".join([ stripzero("%1.4f" % a) for a in act ]))
+        for rect, h in zip(bars, act):
+            rect.set_height(h)
+        ax2.draw_artist(ax2.patch)
+        for bar in bars:
+            ax2.draw_artist(bar)
+
+        im.figure.canvas.blit(im.figure.bbox)
     else:
         oldpos = None
 
